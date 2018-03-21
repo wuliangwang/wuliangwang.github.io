@@ -10,6 +10,11 @@
 
     <!--Description-->
     
+        <meta name="description" content="Handlebars
+
+
+    hello,word!">
+    
 
     <!--Author-->
     
@@ -95,24 +100,21 @@
     <div class="col-sm-12">
 
         <!--Title and Logo-->
-        <header>
+        
+            <header>
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">wuliangwang</h1>
-        
     </div>
 </header>
-
-        <section class="main">
-            
+            <section class="main">
                 
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
-            <a href="/2018/03/21/cell_copy/">
-                Cell自带的长按复制123
+            <a href="/about.html">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
@@ -124,63 +126,37 @@
         </div>
     </div>
 
-    
-        <div class="content">
-            <p>系统提供了 UITableViewCell 长按复制的代理方法，遵守实现即可。<br><img src="http://upload-images.jianshu.io/upload_images/3111822-81107944ab0650db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图1"></p>
-<p>需要遵守 <code>UITableViewDelegate</code> 协议，并设置代理对象.</p>
-<h5 id="1-设置哪一行显示。"><a href="#1-设置哪一行显示。" class="headerlink" title="1.设置哪一行显示。"></a>1.设置哪一行显示。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">      return YES;// 设置哪里显示。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果指定 cell 才有该功能 通过<code>indexPath</code>判断下。返回 <strong>YES</strong> 表示可以显示。<strong>NO</strong>表示不显示。</p>
-<p>#####2. 指定哪一行显示哪些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 设置只有 section = 0 的cell 才能显示并且只有 copy 一个操作</span><br><span class="line">// 根据  action 和 indexPath 来决定哪行哪些操作可以显示</span><br><span class="line">- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender &#123;</span><br><span class="line">    NSLog(@&quot;-------%@&quot;,NSStringFromSelector(action));</span><br><span class="line">    if(action == @selector(copy:) &amp;&amp; indexPath.section == 0)&#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该代理方法会多次调用来确定哪些操作可以显示, 我通过打印  action 发现了 <code>cut:、copy:、paste:、select:、selectAll: ....</code>一些操作, 但是当我全部返回YES时发现显示的只有<code>cut:、copy:、paste:</code> 这三个，并且当我设置这三个其中一个为NO时, <code>select:</code>或者其他非该三个 action 时 显示的就只有两个了，通过这样的测试我发现 可以显示的操作只有 <code>cut:、copy:、paste:</code>。如果是我的操作不对造成的这样的效果，欢迎在评论区提出，谢谢.<br><img src="http://upload-images.jianshu.io/upload_images/3111822-b5ad6a8d92e4e1b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="全部返回YES的效果"></p>
-<p>#####3、执行操作，设置操作对应的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 长按选择操作后调用</span><br><span class="line">- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender&#123;</span><br><span class="line">    // 根据 indexPath 和 action 来判定是不是对应的操作。</span><br><span class="line">    if (action == @selector(copy:)) &#123;</span><br><span class="line">        [UIPasteboard generalPasteboard].string = phoneStr;</span><br><span class="line">    &#125;</span><br><span class="line">    // 实现操作执行后应该实现的功能。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+    <div class="content">
 
-        </div>
-    
+        <!-- Gallery -->
+        
 
-</div>
-            
-                
-<div class="post">
+        <!-- Post Content -->
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Handlebars</title>
+</head>
+<body>
+    hello,word!
+</body>
+</html>
 
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2018/03/21/hello-world/">
-                Hello World
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-03-21</span>
-            
-            
-            
-        </div>
     </div>
 
     
-        <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
-        </div>
+    
+
+    <!-- Comments -->
     
 
 </div>
-            
-        </section>
+            </section>
+        
     </div>
 </div>
-
-
-
-
 
 
 </div>
