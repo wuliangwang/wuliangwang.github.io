@@ -10,6 +10,13 @@
 
     <!--Description-->
     
+        <meta name="description" content="1. 线程中的通信
+线程中通信的体现121 .一个线程传递数据给另一个线程2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务
+
+
+在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信
+#####1.1 NSThreadNSThread可以先将">
+    
 
     <!--Author-->
     
@@ -18,7 +25,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="wuliangwang"/>
+        <meta property="og:title" content="iOS - 线程 / 进程 的通信"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +36,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>wuliangwang</title>
+    <title>iOS - 线程 / 进程 的通信 - wuliangwang</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -129,99 +136,14 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">wuliangwang</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2018/03/21/WebKit_JS/">
-                WebKit与JS的简单交互
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-03-21</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>###JS调OC</p>
-<p>######OC中的实现<br>1.创建一个WKWebViewConfiguration<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WKWebViewConfiguration 是用来配置WKWebView的</span><br><span class="line">WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];</span><br><span class="line">configuration.userContentController = [WKUserContentController new];</span><br><span class="line"> // 注册一个处理事件 参数1:谁来响应这个操作事件(类似于代理，遵守 WKScriptMessageHandler 协议)  参数2: 操作唯一标识符</span><br><span class="line"> //[configuration.userContentController addScriptMessageHandler:self name:@&quot;操作的唯一标识&quot;]; </span><br><span class="line">[configuration.userContentController addScriptMessageHandler:self name:@&quot;testAction&quot;];</span><br></pre></td></tr></table></figure></p>
-<p>2.创建一个WKWebView 与 WKWebViewConfiguration关联起来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];  </span><br><span class="line">self.webView.backgroundColor = [UIColor whiteColor];</span><br><span class="line">[self.webView loadRequest:[NSURLRequest requestWithURL:@&quot;.........&quot;]]; </span><br><span class="line">[self.view addSubview:self.webView];</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>实现 WKScriptMessageHandler 协议中的 userContentController: didReceiveScriptMessage 方法来监听上述配置中的操作事件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - WKScriptMessageHandler</span><br><span class="line">- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,message.name); // 注册操作事件时的唯一标示符</span><br><span class="line">    NSLog(@&quot;%@&quot;,message.body); // JS返回回来的数据</span><br><span class="line">    // 判定name来决定是哪个操作事件</span><br><span class="line">    if([message.name isEqualToString:@&quot;testAction&quot;])&#123;</span><br><span class="line">      NSLog(@&quot;testAction&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>4.使用结束后 确定该标识不需要用 需要删除 要不然会强引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[configuration.userContentController removeScriptMessageHandlerForName:@&quot;testAction&quot;];</span><br></pre></td></tr></table></figure></p>
-<h6 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let configuration = WKWebViewConfiguration()</span><br><span class="line">configuration.userContentController = WKUserContentController()</span><br><span class="line">configuration.userContentController.add(self, name: &quot;testAction&quot;)</span><br><span class="line">        </span><br><span class="line">self.webView = WKWebView.init(frame: self.view.bounds, configuration: configuration)</span><br><span class="line">self.view.addSubview(self.webView)</span><br><span class="line">let url = URL(string: &quot;----&quot;)!</span><br><span class="line">self.webView.load(URLRequest(url: url))</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) &#123;</span><br><span class="line">    print(message.name)</span><br><span class="line">    print(message.body)        </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用结束同样需要删除</span><br><span class="line">configuration.userContentController.removeScriptMessageHandler(forName: &quot;testAction&quot;)</span><br></pre></td></tr></table></figure>
-<p>同样也是要遵守协议 WKScriptMessageHandler</p>
-<p>######JS中的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">在哪里需要调用OC 那么就在哪个函数中调用</span><br><span class="line">例:</span><br><span class="line"> &lt;script&gt;</span><br><span class="line">   function testAction() &#123;</span><br><span class="line">       &lt;!--window.webkit.messageHandlers.方法名(与注册的一致(message.name) ).postMessage(JS传下来的数据(message.body))--&gt;</span><br><span class="line">     &lt;!--data 可以是数组 字典 json字符串.....--&gt;</span><br><span class="line">       window.webkit.messageHandlers.testAction.postMessage(data)</span><br><span class="line">   &#125;</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>###OC调JS</p>
-<p>######OC中的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WKWebView中直接有方法可以调用</span><br><span class="line">// 字符串内容为:JS中的方法名(参数) 参数可以是数组 字典 json字符串</span><br><span class="line">NSString *jsStr = [NSString stringWithFormat:@&quot;showResult(&apos;10086&apos;)&quot;];</span><br><span class="line">[self.webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) &#123;</span><br><span class="line">    NSLog(@&quot;%@----%@&quot;,result, error);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
-<h6 id="Swift-1"><a href="#Swift-1" class="headerlink" title="Swift"></a>Swift</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</span><br><span class="line">let js = &quot;showResult(\(arr))&quot;</span><br><span class="line">self.webView.evaluateJavaScript(js, completionHandler: &#123; (result, error) in</span><br><span class="line">    print(result ?? &quot;nil&quot;,error ?? &quot;nil&quot;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>completionHandler 会调中的 result 是js方法的返回值 (result是个 <strong><em>id / Any</em></strong> 类型，也就是说js中可以返回任意值)</p>
-<p>######JS中的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  function showResult(result) &#123;</span><br><span class="line">    alert(result)</span><br><span class="line">    return &quot;hello,word&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>###其他</p>
-<h5 id="关于-JS中的alert弹框在WKWebView中无法弹出"><a href="#关于-JS中的alert弹框在WKWebView中无法弹出" class="headerlink" title="关于 JS中的alert弹框在WKWebView中无法弹出"></a>关于 JS中的alert弹框在WKWebView中无法弹出</h5><p>原生的alert弹框在WK上面无法弹出<br>解决方法 :<br><code>1. 不使用原生的alert, 自定义一个弹框</code></p>
-<p><code>2. 遵守WKUIDelegate  实现WKWebView的UIDelegate</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">// 显示一个按钮。点击后调用completionHandler回调</span><br><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler&#123;</span><br><span class="line">    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;确认&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        completionHandler();</span><br><span class="line">    &#125;])];</span><br><span class="line">    [self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 显示两个按钮，通过completionHandler回调判断用户点击的确定还是取消按钮</span><br><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler&#123;</span><br><span class="line">    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        completionHandler(NO);</span><br><span class="line">    &#125;])];</span><br><span class="line">    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;确认&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        completionHandler(YES);</span><br><span class="line">    &#125;])];</span><br><span class="line">    [self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 显示一个带有输入框和一个确定按钮的，通过completionHandler回调用户输入的内容</span><br><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler&#123;</span><br><span class="line">    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:prompt message:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) &#123;</span><br><span class="line">        textField.text = defaultText;</span><br><span class="line">    &#125;];</span><br><span class="line">    [alertController addAction:([UIAlertAction actionWithTitle:@&quot;完成&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        completionHandler(alertController.textFields[0].text?:@&quot;&quot;);</span><br><span class="line">    &#125;])];</span><br><span class="line">    </span><br><span class="line">    [self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>相当于是系统在检测到alert弹框时，会调用这些代理方法，然后通过代理方法把对应参数告诉我们，我们自己实现alert方法来弹框</p>
-<h5 id="关于-JS中的select下拉框在WKWebView中的显示样式"><a href="#关于-JS中的select下拉框在WKWebView中的显示样式" class="headerlink" title="关于 JS中的select下拉框在WKWebView中的显示样式"></a>关于 JS中的select下拉框在WKWebView中的显示样式</h5><p>js 中 select 下拉框在不同的浏览器显示的样式就不一样，在WKWebView中会已UIPickerView的形式展示，如果无法满足需求，需要自定义下拉框</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2018/03/21/cell_copy/">
-                Cell自带的长按复制
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-03-21</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>系统提供了 UITableViewCell 长按复制的代理方法，遵守实现即可。<br><img src="http://upload-images.jianshu.io/upload_images/3111822-81107944ab0650db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图1"></p>
-<p>需要遵守 <code>UITableViewDelegate</code> 协议，并设置代理对象.</p>
-<h5 id="1-设置哪一行显示。"><a href="#1-设置哪一行显示。" class="headerlink" title="1.设置哪一行显示。"></a>1.设置哪一行显示。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">      return YES;// 设置哪里显示。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果指定 cell 才有该功能 通过<code>indexPath</code>判断下。返回 <strong>YES</strong> 表示可以显示。<strong>NO</strong>表示不显示。</p>
-<p>#####2. 指定哪一行显示哪些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 设置只有 section = 0 的cell 才能显示并且只有 copy 一个操作</span><br><span class="line">// 根据  action 和 indexPath 来决定哪行哪些操作可以显示</span><br><span class="line">- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender &#123;</span><br><span class="line">    NSLog(@&quot;-------%@&quot;,NSStringFromSelector(action));</span><br><span class="line">    if(action == @selector(copy:) &amp;&amp; indexPath.section == 0)&#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该代理方法会多次调用来确定哪些操作可以显示, 我通过打印  action 发现了 <code>cut:、copy:、paste:、select:、selectAll: ....</code>一些操作, 但是当我全部返回YES时发现显示的只有<code>cut:、copy:、paste:</code> 这三个，并且当我设置这三个其中一个为NO时, <code>select:</code>或者其他非该三个 action 时 显示的就只有两个了，通过这样的测试我发现 可以显示的操作只有 <code>cut:、copy:、paste:</code>。如果是我的操作不对造成的这样的效果，欢迎在评论区提出，谢谢.<br><img src="http://upload-images.jianshu.io/upload_images/3111822-b5ad6a8d92e4e1b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="全部返回YES的效果"></p>
-<p>#####3、执行操作，设置操作对应的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 长按选择操作后调用</span><br><span class="line">- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender&#123;</span><br><span class="line">    // 根据 indexPath 和 action 来判定是不是对应的操作。</span><br><span class="line">    if (action == @selector(copy:)) &#123;</span><br><span class="line">        [UIPasteboard generalPasteboard].string = phoneStr;</span><br><span class="line">    &#125;</span><br><span class="line">    // 实现操作执行后应该实现的功能。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
             <a href="/2018/01/08/APP_Process_Threads/">
                 iOS - 线程 / 进程 的通信
@@ -236,9 +158,13 @@
         </div>
     </div>
 
-    
-        <div class="content">
-            <h4 id="1-线程中的通信"><a href="#1-线程中的通信" class="headerlink" title="1. 线程中的通信"></a>1. 线程中的通信</h4><ul>
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h4 id="1-线程中的通信"><a href="#1-线程中的通信" class="headerlink" title="1. 线程中的通信"></a>1. 线程中的通信</h4><ul>
 <li>线程中通信的体现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 .一个线程传递数据给另一个线程</span><br><span class="line">2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -319,18 +245,20 @@
 <li>第三方SDK分享</li>
 </ul>
 
-        </div>
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
     
 
 </div>
-            
         </section>
+
     </div>
 </div>
-
-
-
-
 
 
 </div>
