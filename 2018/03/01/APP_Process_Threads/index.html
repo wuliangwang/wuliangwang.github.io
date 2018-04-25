@@ -1,169 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html>
 <head>
+  <meta charset="utf-8">
+  
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="1. 线程中的通信
-线程中通信的体现121 .一个线程传递数据给另一个线程2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务
-
-
-在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信
-#####1.1 NSThreadNSThread可以先将">
-    
-
-    <!--Author-->
-    
-        <meta name="author" content="wuliangwang">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="iOS - 线程 / 进程 的通信"/>
-    
-
-    <!--Open Graph Description-->
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="wuliangwang"/>
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
-
-    <!--Page Cover-->
-    
-
-    <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>iOS - 线程 / 进程 的通信 - wuliangwang</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Google Analytics -->
-    
-
-
+  
+  <title>iOS - 线程 / 进程 的通信 | wuliangwang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 线程中的通信 线程中通信的体现121 .一个线程传递数据给另一个线程2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务   在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信 #####1.1 NSThreadNSThread可以先将自己的当前线程对象注册到某个全局的对象中去，这样相互之间就可以获取对方的线程对象，然后就可以使用下面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 线程 &#x2F; 进程 的通信">
+<meta property="og:url" content="http://yoursite.com/2018/03/01/APP_Process_Threads/index.html">
+<meta property="og:site_name" content="wuliangwang">
+<meta property="og:description" content="1. 线程中的通信 线程中通信的体现121 .一个线程传递数据给另一个线程2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务   在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信 #####1.1 NSThreadNSThread可以先将自己的当前线程对象注册到某个全局的对象中去，这样相互之间就可以获取对方的线程对象，然后就可以使用下面">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3111822-a373512510b93081.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3111822-dcce91b08e42c437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3111822-29f215842f653328.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3111822-96a29b608cfdec57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-22T11:22:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS - 线程 &#x2F; 进程 的通信">
+<meta name="twitter:description" content="1. 线程中的通信 线程中通信的体现121 .一个线程传递数据给另一个线程2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务   在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信 #####1.1 NSThreadNSThread可以先将自己的当前线程对象注册到某个全局的对象中去，这样相互之间就可以获取对方的线程对象，然后就可以使用下面">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3111822-a373512510b93081.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="wuliangwang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-
 <body>
-
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
-
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tag">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="https://www.jianshu.com/u/184396eb339b">
-                    Jianshu
-                </a>
-            </li>
-            
-        </ul>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wuliangwang</a>
+      </h1>
+      
     </div>
-</div>
-
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
-</nav>
-
-<div class="container">
-
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
     </div>
+  </div>
 </header>
-
-        <section class="main">
-            
-<div class="post">
-
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2018/03/01/APP_Process_Threads/">
-                iOS - 线程 / 进程 的通信
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-03-01</span>
-            
-            
-            
-        </div>
-    </div>
-
-    <div class="content">
-
-        <!-- Gallery -->
+      <div class="outer">
+        <section id="main"><article id="post-APP_Process_Threads" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/01/APP_Process_Threads/" class="article-date">
+  <time datetime="2018-02-28T16:00:00.000Z" itemprop="datePublished">2018-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
+  
+    <h1 class="article-title" itemprop="name">
+      iOS - 线程 / 进程 的通信
+    </h1>
+  
 
-        <!-- Post Content -->
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
         <h4 id="1-线程中的通信"><a href="#1-线程中的通信" class="headerlink" title="1. 线程中的通信"></a>1. 线程中的通信</h4><ul>
 <li>线程中通信的体现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 .一个线程传递数据给另一个线程</span><br><span class="line">2 .在一个线程中执行完特定任务后，转到另一个线程继续执行任务</span><br></pre></td></tr></table></figure>
 </li>
@@ -245,128 +171,120 @@
 <li>第三方SDK分享</li>
 </ul>
 
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/01/APP_Process_Threads/" data-id="cjgeztz5w0000gwf9hkkchpxq" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/09/cell_copy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Cell自带的长按复制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/13/WebKit_JS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">WebKit与JS的简单交互</div>
+    </a>
+  
+</nav>
 
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
     
 
+  
     
 
-    <!-- Comments -->
+  
     
-
-</div>
-        </section>
-
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
     </div>
-</div>
+  </div>
 
 
-</div>
-
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://www.jianshu.com/u/184396eb339b">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2018/03/09/cell_copy/">Cell自带的长按复制</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/03/01/APP_Process_Threads/">iOS - 线程 / 进程 的通信</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/09/13/WebKit_JS/">WebKit与JS的简单交互</a>
-            </li>
-            
-        </ul>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/09/cell_copy/">Cell自带的长按复制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/01/APP_Process_Threads/">iOS - 线程 / 进程 的通信</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/13/WebKit_JS/">WebKit与JS的简单交互</a>
+          </li>
+        
+      </ul>
     </div>
+  </div>
 
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/wuliangwang">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:wuliangwang88@163.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 wuliangwang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
+  </div>
 </footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-<!-- After footer scripts -->
-
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
-<script src="/js/main.js"></script>
-
-<!-- Disqus Comments -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
 </body>
-
 </html>

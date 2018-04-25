@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>iOS - 人脸特征关键点获取 | wuliangwang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 人脸特征关键点获取">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/iOS - 人脸特征关键点获取/index.html">
+<meta property="og:site_name" content="wuliangwang">
+<meta property="og:description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-7ccf6b964fd9360d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-49bbd6e97abd7dcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-2bab80072b404b10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-95d918d29bb031e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-dae9273daed664c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-61b3fb41f946797f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-f3a41a525e41b425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-45ad1bd1fcd8054d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-4cd278a81e125d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-71956960213666c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-c98b1d48e42fa632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-04-25T11:04:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS - 人脸特征关键点获取">
+<meta name="twitter:description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3111822-7ccf6b964fd9360d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="wuliangwang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">wuliangwang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-iOS - 人脸特征关键点获取" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/25/iOS - 人脸特征关键点获取/" class="article-date">
+  <time datetime="2018-04-24T16:00:00.000Z" itemprop="datePublished">2018-04-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS - 人脸特征关键点获取
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-OpenCV-Face-stasm"><a href="#1-OpenCV-Face-stasm" class="headerlink" title="1. OpenCV + Face + stasm"></a>1. OpenCV + Face + stasm</h3><p><code>OpenCV</code>  OpenCV3.0以上的包</p>
+<p> <code>Face</code> 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用</p>
+<p><code>stasm</code>是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV.</p>
+<p>1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,<a href="https://opencv.org/" target="_blank" rel="noopener">下载地址</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-7ccf6b964fd9360d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="下载解压完成后"></p>
+<p>1.1.2 将OpenCV的拓展包下载下来, <a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="noopener">下载地址</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-49bbd6e97abd7dcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="拓展包下载解压完成后"></p>
+<p>1.1.3 stasm 算法的下载 <a href="https://github.com/wuliangwang/Face/tree/master/Tool" target="_blank" rel="noopener">下载地址</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-2bab80072b404b10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="stasm 算法"></p>
+<p>三个文件都下载完成之后，开始合并 OpenCV 的静态库</p>
+<p>1.2.1 将OpenCV的拓展包 opencv_contrib-master 下的 modules 目录下的所有文件copy到 OpenCV包目录下的modules中.</p>
+<p>1.2.2 文件copy完成后，这个时候打开终端 cd 到 OpenCV包目录下 platforms -&gt;  ios 下</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-95d918d29bb031e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="platforms -&gt;  ios 下"></p>
+<p>1.2.3 执行 <code>build_framework.py</code>  文件, 这是一个python文件，mac自带了python2.7的环境，所有可以执行</p>
+<p>执行命令 <code>python build_framework.py</code> (需要确保在上述路径下,否则会找不到这个文件)</p>
+<p>1.2.4 执行该脚本耗时很长，所有执行前需要确保 已经将拓展包中modules目录下的文件copy到了OpenCV -&gt; modules 目录下</p>
+<p>1.2.5 执行成功， 经过漫长的等待后, 该目录下生成了一个 build的文件夹，该文件夹目录下就有已经打包好的OpenCV静态库的包，拉进项目 可以直接使用.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-dae9273daed664c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="build"></p>
+<p>1.3.1 在Xcode 中使用 stasm 算法获取 人脸关键点信息</p>
+<p>先配置好 stasm 算法中需要的训练库(之前下载链接中有)</p>
+<p>在 stasm-&gt;MOD_1 -&gt;facedet.cpp -&gt; OpenFaceDetector_ 方法中 正脸目前测试 haarcascade_frontalface_alt2 效果最佳</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-61b3fb41f946797f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="训练库设置"></p>
+<p>使用 (因为是C++的方法 所以需要改为.mm 使用)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int stasm_search_single(   // wrapper for stasm_search_auto and friends</span><br><span class="line">    int*        foundface, // out: 0=no face, 1=found face</span><br><span class="line">    float*      landmarks, // out: x0, y0, x1, y1, ..., caller must allocate</span><br><span class="line">    const char* img,       // in: gray image data, top left corner at 0,0</span><br><span class="line">    int         width,     // in: image width</span><br><span class="line">    int         height,    // in: image height</span><br><span class="line">    const char* imgpath,   // in: image path, used only for err msgs and debug</span><br><span class="line">    const char* datadir)   // in: directory of face detector files</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> *	配置参数</span><br><span class="line"> *	参数1: 表示是否成功  0=no face, 1=found face</span><br><span class="line"> *	参数2: 成功后 获取的关键点位置</span><br><span class="line"> *	参数3: 图片的灰度图的二进制值</span><br><span class="line"> *	参数4/5: 图片的宽高值</span><br><span class="line"> *  参数6: 图片路径 调试用 可以不传</span><br><span class="line"> *  参数7: 训练库文件的目录 注意只是到当前目录 不是全路径</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">// 参数1</span><br><span class="line">int foundface;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 参数2</span><br><span class="line"> * stasm_NLANDMARKS 是 stasm的一个宏 一个int值 值为77 表示可以获取到77个点</span><br><span class="line"> * 乘以2 是因为返回的值是float 每一个点都有x,y 返回值为:x0, y0, x1, y1, 相当于两个元素才能合成一个点</span><br><span class="line"> */</span><br><span class="line">float landmarks[2 * stasm_NLANDMARKS];</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 参数3</span><br><span class="line"> * 图片的灰度图, 可以直接使用OpenCV的方法获取</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">// 将UIImage 转成 cv::Mat </span><br><span class="line">cv::Mat cvFaceImage;</span><br><span class="line">UIImageToMat(image, cvFaceImage);</span><br><span class="line"></span><br><span class="line">// 将cv::Mat的image 转成灰度图</span><br><span class="line">// CV_RGBA2GRAY 表示 将四通道RGBA的图片 转成灰度图 iOS中图片默认是RGBA的</span><br><span class="line">cv::Mat cvGrayFaceImage;</span><br><span class="line">cv::cvtColor(cvFaceImage, cvGrayFaceImage,CV_RGBA2GRAY);</span><br><span class="line">const char* imgData = (const char*)cvGrayFaceImage.data;</span><br><span class="line"></span><br><span class="line">//参数4/5 图片的宽高 cv::Mat 的图片可以直接取</span><br><span class="line">int imgCols = cvGrayFaceImage.cols;</span><br><span class="line">int imgRows = cvGrayFaceImage.rows;</span><br><span class="line"></span><br><span class="line">// 参数6 不传</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 参数7 训练库文件的目录 </span><br><span class="line"> * 这里需要注意 iOS获取项目中文件 需要通过Bundle获取</span><br><span class="line"> * [NSBundle mainBundle].bundlePath 作为目录 是可以拿到项目中所以文件的 不管有没有其他子文件夹了。</span><br><span class="line"> * 其他平台中, 那么就指定路径</span><br><span class="line"> */</span><br><span class="line"> const char *xmlPath = [[NSBundle mainBundle].bundlePath UTF8String];</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">// 方法有返回值 如果为0 那么就说明方法调用出现问题</span><br><span class="line">int stasmActionError = stasm_search_single(&amp;foundface, landmarks,imgData, imgCols, imgRows, &quot;&quot;, xmlPath);</span><br><span class="line">if (!stasmActionError)&#123;</span><br><span class="line">   	//  通过打印 stasm_lasterr() 可以看到错误信息</span><br><span class="line">    printf(&quot;Error in stasm_search_single: %s\n&quot;, stasm_lasterr());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (!foundface) &#123;</span><br><span class="line">	printf(&quot;No face found&quot;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    // 这里就说明已经获取到关键点了 </span><br><span class="line">    // 将关键点显示出来</span><br><span class="line">    </span><br><span class="line">   // 将RGBA四通道的图片 转成 BGR三通道</span><br><span class="line">   cv::Mat cvFaceImage_BGR;</span><br><span class="line">   cv::cvtColor(cvFaceImage, cvFaceImage_BGR, CV_RGBA2BGR);</span><br><span class="line">   </span><br><span class="line">   for (int i = 0; i &lt; stasm_NLANDMARKS; i++)&#123;</span><br><span class="line">   		// 生成一个当前点脚标的String字符串</span><br><span class="line">        std::string number = std::to_string(i);</span><br><span class="line">        // 获取中心点 根据x在前 y在后 两个元素为一个点的顺序</span><br><span class="line">        cv::Point center(cvRound(landmarks[i * 2 ]), cvRound(landmarks[i * 2+1]));</span><br><span class="line">        // 将点画上去 </span><br><span class="line">        cv::circle(cvFaceImage_BGR, center, 0.25, cv::Scalar(255, 0, 0), 2, 8, 0);</span><br><span class="line">        // 将脚标也画上去</span><br><span class="line">        cv::putText(cvFaceImage_BGR,number,center, cv::FONT_HERSHEY_PLAIN,0.7, cv::Scalar(0, 0, 255));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   // 将BGR三通道的图片 转成 RGBA四通道</span><br><span class="line">   cv::Mat cvFaceImageResult;</span><br><span class="line">   cv::cvtColor(cvFaceImage_BGR, cvFaceImageResult, CV_BGR2RGBA);</span><br><span class="line">    </span><br><span class="line">   //绘制出关键点的image</span><br><span class="line">   UIImage *result = MatToUIImage(cvFaceImageResult);</span><br><span class="line">   </span><br><span class="line">   cvFaceImage_BGR.release();</span><br><span class="line">   cvFaceImageResult.release();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 释放cv::Mat</span><br><span class="line">cvFaceImage.release();</span><br><span class="line">cvGrayFaceImage.release();</span><br></pre></td></tr></table></figure>
+<p> 关于  cv::circle 和 cv::putText</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/* 绘制圆形</span><br><span class="line"> * img: cv::Mat的 image， 注意 这里需要转成三通道BGR的图片, 因为OpenCV中用的是这种格式 </span><br><span class="line"> * center: 中心点</span><br><span class="line"> * radius: 半径</span><br><span class="line"> * color: 颜色 创建方法 cv::Scalar(B, G, R);</span><br><span class="line"> * thickness: 如果是正数，表示组成圆的线条的粗细程度。否则，表示圆是否被填充</span><br><span class="line"> * lineType： 线条类型 正常用  LINE_8 / 8 就OK</span><br><span class="line"> 	* FILLED  = -1, </span><br><span class="line">    * LINE_4  = 4, //!&lt; 4-connected line</span><br><span class="line">    * LINE_8  = 8, //!&lt; 8-connected line</span><br><span class="line">    * LINE_AA = 16 //!&lt; antialiased line</span><br><span class="line"> * shift: 圆心坐标点和半径值的小数点位数 也就是说中心点和半径的值的精度化</span><br><span class="line"> */</span><br><span class="line"> void circle(InputOutputArray img, Point center, int radius,</span><br><span class="line">                       const Scalar&amp; color, int thickness = 1,</span><br><span class="line">                       int lineType = LINE_8, int shift = 0);</span><br><span class="line">                       </span><br><span class="line">                       </span><br><span class="line"></span><br><span class="line">/* 绘制文字</span><br><span class="line"> * img: cv::Mat的 image， 注意 这里需要转成三通道BGR的图片, 因为OpenCV中用的是这种格式 </span><br><span class="line"> * text: 待显示的文字</span><br><span class="line"> * org: 文字在图像中的左下角 坐标.</span><br><span class="line"> * fontFace: 字体类型，</span><br><span class="line"> 	* 可选择字体：FONT_HERSHEY_SIMPLEX, FONT_HERSHEY_PLAIN, 			FONT_HERSHEY_DUPLEX,FONT_HERSHEY_COMPLEX, FONT_HERSHEY_TRIPLEX, FONT_HERSHEY_COMPLEX_SMALL, FONT_HERSHEY_SCRIPT_SIMPLEX, orFONT_HERSHEY_SCRIPT_COMPLEX,以上所有类型都可以配合 FONT_HERSHEY_ITALIC使用，产生斜体效果。	</span><br><span class="line"> * fontScale: 字体大小，该值和字体内置大小相乘得到字体大小</span><br><span class="line"> * color: 颜色 创建方法 cv::Scalar(B, G, R);</span><br><span class="line"> * thickness: 写字的线的粗细，类似于0.38的笔尖和0.5的笔尖</span><br><span class="line"> * lineType： 写字的线条类型 和上诉一致</span><br><span class="line"> * bottomLeftOrigin: true: 图像数据原点在左下角. false: 图像数据原点在左上角.</span><br><span class="line"> */</span><br><span class="line">void putText( InputOutputArray img, const String&amp; text, Point org,</span><br><span class="line">                         int fontFace, double fontScale, Scalar color,</span><br><span class="line">                         int thickness = 1, int lineType = LINE_8,</span><br><span class="line">                         bool bottomLeftOrigin = false )</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-f3a41a525e41b425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OpenCV效果图"></p>
+<p>优点: 基于OpenCV + 拓展包, 效率快,  正面点精确率高. 免费.市面上大厂提供的SDK基本都是收费的.</p>
+<p>缺点:  OpenCV + 拓展包合并出来的静态库文件太大,  不适合在APP上面.</p>
+<p>有一个缩小的方法: 不使用拓展包的face模块， 直接使用OpenCV中的objdetect模块. 效果差不多,就是效率低了很多. </p>
+<p>缩小版使用方法: </p>
+<p>直接Pod OpenCV2 大于3.0版本. 或者直接去官网下载一个OpenCV的包 也要大于3.0， 然后不用 上述 1.2.1 那一步， 直接去执行脚本文件,生成一个OpenCV的静态库.</p>
+<p>然后将 stasm 目录下所有文件 导入 <code>include &lt;opencv2/face.hpp&gt;</code> 的代码换成 <code>include &lt;opencv2/objdetect.hpp&gt;</code> 就OK了. 其他使用步骤方法和上述一致.</p>
+<p>注意点: 因为OpenCV中有一些宏定义和系统的冲突， 所以OpenCV的头文件导入, 需要在最前面, 否则会报错.</p>
+<p><a href="https://github.com/wuliangwang/Face/tree/master/GetPoint" target="_blank" rel="noopener">方法获取</a></p>
+<h3 id="2-iOS11-原生框架-Vision"><a href="#2-iOS11-原生框架-Vision" class="headerlink" title="2. iOS11 原生框架 Vision"></a>2. iOS11 原生框架 Vision</h3><blockquote>
+<p>Vision 是 Apple 在 WWDC 2017 推出的图像识别框架。</p>
+<p><strong>Vison 的设计理念</strong></p>
+<p>苹果最擅长的，把复杂的事情简单化，Vision的设计理念也正是如此。</p>
+<p>对于使用者我们抽象的来说，我们只需要：提出问题–&gt;经过机器–&gt;得到结果。</p>
+<p>开发者不需要是计算机视觉专家，开发者只需要得到结果即可，一切复杂的事情交给Vision。</p>
+</blockquote>
+<p>Vision 获取人脸信息 使用</p>
+<p>1，创建处理图片处理对应的VNImageRequestHandler对象。</p>
+<p>2， 创建对应的识别 VNDetectFaceLandmarksRequest 请求，指定 Complete Handler 识别成功后进行回调执行的一个Block）</p>
+<p>3，发送识别请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Vision/Vision.h&gt;</span><br><span class="line">//1</span><br><span class="line">CIImage *faceCIImage = [[CIImage alloc]initWithImage:image];</span><br><span class="line">VNImageRequestHandler *vnRequestHeader = [[VNImageRequestHandler alloc] initWithCIImage:faceCIImage options:@&#123;&#125;];</span><br><span class="line">//2</span><br><span class="line">__weak ViewController *weakSelf = self;</span><br><span class="line">VNDetectFaceLandmarksRequest *faceRequest = [[VNDetectFaceLandmarksRequest alloc] initWithCompletionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) &#123;</span><br><span class="line">	[weakSelf faceLandmarks:request.results];</span><br><span class="line">&#125;];</span><br><span class="line">// 3</span><br><span class="line">[vnRequestHeader performRequests:@[face_request] error:NULL];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 获取信息成功后 处理</span><br><span class="line">- (void)faceLandmarks:(NSArray *)faces&#123;</span><br><span class="line">    // 可能是多张脸</span><br><span class="line">    [faces enumerateObjectsUsingBlock:^(VNFaceObservation *face, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">       </span><br><span class="line">       /*</span><br><span class="line">       	* face: VNFaceObservation 对象, 里面包含了 landmarks 位置信息, boundingBox 脸的大小 等等信息</span><br><span class="line">        */</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">       	// 取出单个脸的 landmarks </span><br><span class="line">        VNFaceLandmarks2D *landmarks = face.landmarks;</span><br><span class="line">        // 声明一个存关键位置的数组</span><br><span class="line">        NSMutableArray *face_landmarks = [NSMutableArray array];</span><br><span class="line">        </span><br><span class="line">        // landmarks 是一个对象，对象中有左眼位置，右眼，鼻子，鼻梁等等属性 根据需求自己添加</span><br><span class="line">        [face_landmarks addObject:landmarks.faceContour];</span><br><span class="line">        [face_landmarks addObject:landmarks.leftEye];</span><br><span class="line">        [face_landmarks addObject:landmarks.rightEye];</span><br><span class="line">        [face_landmarks addObject:landmarks.leftEyebrow];</span><br><span class="line">        [face_landmarks addObject:landmarks.rightEyebrow];</span><br><span class="line">        [face_landmarks addObject:landmarks.outerLips];</span><br><span class="line">        [face_landmarks addObject:landmarks.innerLips];</span><br><span class="line">        [face_landmarks addObject:landmarks.nose];</span><br><span class="line">        [face_landmarks addObject:landmarks.noseCrest];</span><br><span class="line">        [face_landmarks addObject:landmarks.medianLine];</span><br><span class="line">        [face_landmarks addObject:landmarks.outerLips];</span><br><span class="line">        [face_landmarks addObject:landmarks.innerLips];</span><br><span class="line">        [face_landmarks addObject:landmarks.leftPupil];</span><br><span class="line">        [face_landmarks addObject:landmarks.rightPupil];</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        // 当前脸在图片中的位置和大小</span><br><span class="line">        // 注意: boundingBox 返回的x,y,w,h 的比例 不是直接的值，所以需要转换</span><br><span class="line">        </span><br><span class="line">        // 这里的 image_wh是一个宏 表示的图片的宽高大小 也可以直接image.size.width....</span><br><span class="line">        </span><br><span class="line">        CGFloat faceRectWidth = image_wh * face.boundingBox.size.width;</span><br><span class="line">        CGFloat faceRectHeight = image_wh * face.boundingBox.size.height;</span><br><span class="line">        CGFloat faceRectX = face.boundingBox.origin.x * image_wh;</span><br><span class="line">        // Y默认的位置是左下角</span><br><span class="line">        CGFloat faceRectY = face.boundingBox.origin.y * image_wh;</span><br><span class="line">        </span><br><span class="line">  		// 遍历位置信息</span><br><span class="line">        [face_landmarks enumerateObjectsUsingBlock:^(VNFaceLandmarkRegion2D *obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        	// VNFaceLandmarkRegion2D *obj 是一个对象. 表示当前的一个部位</span><br><span class="line">			// 遍历当前部分所有的点</span><br><span class="line">            for (int i=0; i&lt;obj.pointCount; i++) &#123;</span><br><span class="line">            	// 取出点</span><br><span class="line">                CGPoint point = obj.normalizedPoints[i];</span><br><span class="line">                </span><br><span class="line">                // 计算出center</span><br><span class="line">                /*</span><br><span class="line">                 * 这里的 point 的 x,y 表示也比例, 表示当前点在脸的比例值</span><br><span class="line">                 * 因为Y点是在左下角， 所以我们需要转换成左上角</span><br><span class="line">                 * 这里的center 关键点 可以根据需求保存起来</span><br><span class="line">                 */</span><br><span class="line">        		CGPoint center = CGPointMake(faceRectX + faceRectWidth * point.x, image_wh - (faceRectY + faceRectHeight * point.y));</span><br><span class="line">               </span><br><span class="line">                // 将点显示出来</span><br><span class="line">                UIView *point_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 3)];</span><br><span class="line">                point_view.backgroundColor = [UIColor redColor];</span><br><span class="line">                point_view.center = center;                </span><br><span class="line">                // 将点添加到imageView上即可 需要注意，当前image的bounds 应该和图片大小一样大</span><br><span class="line">                [imageView addSubview:point_view];</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-45ad1bd1fcd8054d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单脸效果"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-4cd278a81e125d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多脸效果"></p>
+<p>多脸效果 因为图片设置的小 所以有点密 </p>
+<p>关于Vision 这里有一篇其他文章推荐 <a href="http://www.cocoachina.com/ios/20170801/20061.html" target="_blank" rel="noopener">Vision </a></p>
+<p><strong>优点</strong>: 苹果原生,使用方便,多脸识别. 免费, 不需要联网<br><strong>缺点</strong>: iOS11 以上才能使用. 精确率不如OpenCV</p>
+<h3 id="3-腾讯优图SDK"><a href="#3-腾讯优图SDK" class="headerlink" title="3.腾讯优图SDK"></a>3.腾讯优图SDK</h3><p>典型案例: 天天P图 </p>
+<blockquote>
+<p>对请求图片进行五官定位，计算构成人脸轮廓的90个点，包括眉毛（左右各8点）、眼睛（左右各8点）、鼻子（13点）、嘴巴（22点）、脸型轮廓（21点）、眼珠[或瞳孔]（2点）。<br><img src="https://upload-images.jianshu.io/upload_images/3111822-71956960213666c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优图示范效果图"></p>
+</blockquote>
+<p><a href="http://open.youtu.qq.com/#/develop/api-face-analysis-shape" target="_blank" rel="noopener">优图SDK</a><br><a href="https://github.com/Tencent-YouTu/ios_sdk" target="_blank" rel="noopener">工具包下载</a></p>
+<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">//1. 注册sdk 需要Conf.m 文件中 填写  appId ,secretId, secretKey</span><br><span class="line">NSString *auth = [Auth appSign:1000000 userId:nil];</span><br><span class="line">TXQcloudFrSDK *sdk = [[TXQcloudFrSDK alloc] initWithName:[Conf instance].appId authorization:auth endPoint:[Conf instance].API_END_POINT];</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * TXQcloudFrSDK 中有很多方法 人脸检测，人脸对比等等.. 用法都一样，直接请求 参数类型不一致，详见TXQcloudFrSDK.h</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">// 2 发送请求获取关键点</span><br><span class="line"> [sdk faceShape:image successBlock:^(id responseObject) &#123;</span><br><span class="line"> // 该方法 responseObject 是一个字典</span><br><span class="line">  [self handleFacePoint:responseObject];</span><br><span class="line"> &#125; failureBlock:^(NSError *error) &#123;</span><br><span class="line">  NSLog(@&quot;error : %@&quot;,error);</span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line">// 3 处理关键点信息</span><br><span class="line"></span><br><span class="line">- (void)handleFacePoint:(NSDictionary *)responseObject&#123;</span><br><span class="line">    // 将人脸信息提取出来</span><br><span class="line">    NSArray * face_shape = [responseObject objectForKey:@&quot;face_shape&quot;];</span><br><span class="line">    if (face_shape.count == 0) &#123;</span><br><span class="line">        NSLog(@&quot;没有找到脸的位置&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSDictionary *face_shape_first = [face_shape firstObject];</span><br><span class="line">    [face_shape_first enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray * obj, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        NSLog(@&quot;位置 %@&quot;,key);</span><br><span class="line">        [obj enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">            NSLog(@&quot;x: %@  Y: %@&quot;,[dict objectForKey:@&quot;x&quot;],[dict objectForKey:@&quot;y&quot;]);</span><br><span class="line">            // 这里获取到的点 是直接匹配上传图片对应位置的， 不需要二次转换</span><br><span class="line">            CGFloat x = [[dict objectForKey:@&quot;x&quot;] doubleValue];</span><br><span class="line">            CGFloat y = [[dict objectForKey:@&quot;y&quot;] doubleValue];</span><br><span class="line">         </span><br><span class="line">            UIView *pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 3)];</span><br><span class="line">            pointView.center = CGPointMake(x , y );</span><br><span class="line">            pointView.backgroundColor = [UIColor redColor];</span><br><span class="line">            [imageView addSubview:pointView];</span><br><span class="line">            </span><br><span class="line">        &#125;];</span><br><span class="line">        NSLog(@&quot;----&quot;);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3111822-c98b1d48e42fa632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优图SDK效果图"></p>
+<h4 id="其他SDK-科大讯飞，百度，阿里，face-…-等等有很多大公司都提供了人脸信息获取的接口"><a href="#其他SDK-科大讯飞，百度，阿里，face-…-等等有很多大公司都提供了人脸信息获取的接口" class="headerlink" title="其他SDK, 科大讯飞，百度，阿里，face++…. 等等有很多大公司都提供了人脸信息获取的接口"></a>其他SDK, 科大讯飞，百度，阿里，face++…. 等等有很多大公司都提供了人脸信息获取的接口</h4><p>第三方SDK 优缺点<br><strong>优点:</strong> 集成方便,识别快, 精确率高。<br><strong>缺点:</strong> 收费,需要依赖网络请求. 也提供了本地识别的SDK,价格很高.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/25/iOS - 人脸特征关键点获取/" data-id="cjgeztz690005gwf9b8noor8z" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/09/cell_copy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Cell自带的长按复制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/09/cell_copy/">Cell自带的长按复制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/01/APP_Process_Threads/">iOS - 线程 / 进程 的通信</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/13/WebKit_JS/">WebKit与JS的简单交互</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 wuliangwang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
