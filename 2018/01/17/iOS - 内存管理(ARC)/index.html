@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="#####历史
+
+苹果在 2011 年的时候，在 WWDC 大会上提出了自动的引用计数（ARC）。ARC 背后的原理是依赖编译器的静态分析能力，通过在编译时找出合理的插入引用计数管理代码.2014 年的 WWDC 大会上，苹果推出了 Swift 语言，而该语言仍然使用 ARC 技术，作为其内存管理方">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS - 内存管理(ARC)"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS - 内存管理(ARC) - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - 内存管理(ARC)</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-01-17</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>#####历史</p>
+<blockquote>
+<p>苹果在 2011 年的时候，在 WWDC 大会上提出了自动的引用计数（ARC）。ARC 背后的原理是依赖编译器的静态分析能力，通过在编译时找出合理的插入引用计数管理代码.<br>2014 年的 WWDC 大会上，苹果推出了 Swift 语言，而该语言仍然使用 ARC 技术，作为其<a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html" target="_blank" rel="noopener">内存管理方式</a>。</p>
+</blockquote>
+<hr>
+<p>####1.引用计数</p>
+<p>######1.1什么是引用计数<br>引用计数（Reference Count）是一个简单而有效的管理对象生命周期的方式。当我们创建一个新对象的时候，它的引用计数为 1，当有一个新的指针指向这个对象时，我们将其引用计数加 1，当某个指针不再指向这个对象是，我们将其引用计数减 1，当对象的引用计数变为 0 时，说明这个对象不再被任何指针指向了，这个时候我们就可以将对象销毁，回收内存。<br><img src="http://upload-images.jianshu.io/upload_images/3111822-a867f42c1a5fa8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="引用计数"></p>
+<p>####2.ARC的内存管理<br>ARC 能够解决 iOS 开发中 90% 的内存管理问题，但是另外还有 10% 内存管理，是需要开发者自己处理的，这主要就是与底层 Core Foundation 对象交互的那部分，底层的 Core Foundation 对象由于不在 ARC 的管理下，所以需要自己维护这些对象的引用计数。</p>
+<p>内存管理问题<br>1.循环引用(block,代理)<br>2.Core Foundation 对象需要手动管理计数器</p>
+<p>#####2.1 循环引用<br>引用计数这种管理内存的方式虽然使开发变得简便，但是也有瑕疵,那就是不能很好解决循环引用.<br><img src="http://upload-images.jianshu.io/upload_images/3111822-20f99c79094eb183.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="循环引用"><br>上图所示:对象A和对象B 相互引用成为成员变量,，只有当对象A销毁时,才会对对象A中所以成员变量引用计数-1.因为对象A的销毁依赖于对象B的销毁，对象B的销毁依赖于对象A的销毁.那么就造成了循环引用。即使这两个对象在在其他地方已经没有任何指针调用它们,它们依旧不会释放.<br>上述问题不单只是在两个对象之间出现,只有是多个对象中出现了相互持有引用的情况下,都会出现循环引用</p>
+<p>解决方法:</p>
+<ol>
+<li>主动断开循环引用<br>因为是相互引用造成的循环引用，那么只要在 不再需要使用这个对象时，将其主动断开引用<br><img src="http://upload-images.jianshu.io/upload_images/3111822-1af5844a14f06b47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主动断开"><br>代码示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic,copy) void(^testBlock)(void);</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    self.testBlock = ^&#123;</span><br><span class="line">        //当你在快中主动调用self时 Xcode会提示你 出现循环引用 这里只是为了测试</span><br><span class="line">        NSLog(@&quot;%@&quot;,self);</span><br><span class="line">    &#125;;</span><br><span class="line">    self.testBlock();</span><br><span class="line">&#125;</span><br><span class="line">- (void)viewWillDisappear:(BOOL)animated&#123;</span><br><span class="line">    [super viewWillDisappear:animated];</span><br><span class="line">    self.testBlock = nil;</span><br><span class="line">    NSLog(@&quot;viewWillDisappear&quot;);</span><br><span class="line">&#125;</span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">    NSLog(@&quot;TestViewController -- dealloc&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上述代码中 在 <code>viewDidLoad</code> 中 self引用 testBlock 作为成员变量 , testBlock 值中调用self, 那么就造成了循环引用. 所以我们假设在 viewWillDisappear 中不再需要使用 testBlock 所以将值设为nil, 那么testBlock 中就不再调用self了, 所以最后self走了dealloc方法<br><img src="http://upload-images.jianshu.io/upload_images/3111822-f427a52696186379.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>主动断开循环引用这种操作依赖开发中手动操作，这样感觉像回到了 MRC年代  <strong>谁创建谁释放</strong>  的年代 ，依赖于开发者自己知道什么时候不再需要，主动断开. 所以这种方法不常用.</p>
+<ol>
+<li>使用弱引用<br>弱引用虽然持有对象，但是并不增加引用计数，这样就避免了循环引用的产生。在 iOS 开发中，弱引用通常在 delegate 模式中使用。<br><img src="http://upload-images.jianshu.io/upload_images/3111822-3073c4507099898e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="弱引用"></li>
+</ol>
+<p>声明属性时将其修饰为弱引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic,weak) id&lt;TestDelegate&gt; delegate;</span><br></pre></td></tr></table></figure></p>
+<p>如果block中调用到相互持有的对象 那么将其弱引用 就不会造成循环引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">self.testBlock = ^&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,weakSelf);</span><br><span class="line">&#125;;</span><br><span class="line">self.testBlock();</span><br></pre></td></tr></table></figure></p>
+<p>弱引用的实现原理</p>
+<blockquote>
+<p>弱引用的实现原理是这样，系统对于每一个有弱引用的对象，都维护一个表来记录它所有的弱引用的指针地址。这样，当一个对象的引用计数为 0 时，系统就通过这张表，找到所有的弱引用指针，继而把它们都置成 nil。<br><br>从这个原理中，我们可以看出，弱引用的使用是有额外的开销的。虽然这个开销很小，但是如果一个地方我们肯定它不需要弱引用的特性，就不应该盲目使用弱引用。举个例子，有人喜欢在手写界面的时候，将所有界面元素都设置成 weak 的，这某种程度上与 Xcode 通过 Storyboard 拖拽生成的新变量是一致的。但是我个人认为这样做并不太合适。因为:</p>
+<ol>
+<li>我们在创建这个对象时，需要注意临时使用一个强引用持有它，否则因为 weak 变量并不持有对象，就会造成一个对象刚被创建就销毁掉。</li>
+<li>大部分 ViewController 的视图对象的生命周期与 ViewController 本身是一致的，没有必要额外做这个事情。</li>
+<li>早先苹果这么设计，是有历史原因的。在早年，当时系统收到 Memory Warning 的时候，ViewController 的 View 会被 unLoad 掉。这个时候，使用 weak 的视图变量是有用的，可以保持这些内存被回收。但是这个设计已经被废弃了，替代方案是将相关视图的 CALayer 对应的 CABackingStore 类型的内存区会被标记成 volatile 类型，详见<a href="http://blog.devtang.com/2013/05/18/goodbye-viewdidunload/" target="_blank" rel="noopener">《再见，viewDidUnload方法》</a>。</li>
+</ol>
+</blockquote>
+<h5 id="2-2-Core-Foundation-对象需要手动管理计数器"><a href="#2-2-Core-Foundation-对象需要手动管理计数器" class="headerlink" title="2.2 Core Foundation 对象需要手动管理计数器"></a>2.2 Core Foundation 对象需要手动管理计数器</h5><p>一般来说,以CF开头的系统API都是 CoreFoundation框架的<br>手动管理,说白了,就是谁创建,谁销毁<br>创建两个CF对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个 CFStringRef 对象</span><br><span class="line">CFStringRef strRef= CFStringCreateWithCString(kCFAllocatorDefault, “hello world&quot;, kCFStringEncodingUTF8);</span><br><span class="line">// 创建一个 CTFontRef 对象</span><br><span class="line">CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@&quot;ArialMT&quot;, fontSize, NULL);</span><br></pre></td></tr></table></figure></p>
+<p>创建完后 两个对象引用计数器 = 1<br>当这两个对象不需要再使用时，那么就需要调用 CFRelease 来使计数器-1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CFRelease(strRef);</span><br><span class="line">CFRelease(fontRef);</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-7e2d36516ec288cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="手动管理计数器"></p>
+<p>所以对于底层 Core Foundation 对象，我们只需要延续以前手工管理引用计数的办法即可。<br>其实Core 开头的框架 很多有会 retain 和 release 方法， 所以我们一般在使用结束后,将创建出来的core对象release一次.</p>
+<blockquote>
+<p>除此之外，还有另外一个问题需要解决。在 ARC 下，我们有时需要将一个 Core Foundation 对象转换成一个 Objective-C 对象，这个时候我们需要告诉编译器，转换过程中的引用计数需要做如何的调整。这就引入了bridge相关的关键字，以下是这些关键字的说明：</p>
+<ul>
+<li>__bridge: 只做类型转换，不修改相关对象的引用计数，原来的 Core Foundation 对象在不用-时，需要调用 CFRelease 方法。</li>
+<li>__bridge_retained：类型转换后，将相关对象的引用计数加 1，原来的 Core Foundation 对象在不用时，需要调用 CFRelease 方法。</li>
+<li>__bridge_transfer：类型转换后，将该对象的引用计数交给 ARC 管理，Core Foundation 对象在不用时，不再需要调用 CFRelease 方法。<br>我们根据具体的业务逻辑，合理使用上面的 3 种转换关键字，就可以解决 Core Foundation 对象与 Objective-C 对象相对转换的问题了。</li>
+</ul>
+</blockquote>
+<p>使用 Xcode 检测循环引用<br>在Xcode的的菜单栏中选择 ：Product -&gt; Profile，然后选择 “Leaks”，再点击右下角的”Choose” 按钮开始检测。如下图<br><img src="http://upload-images.jianshu.io/upload_images/3111822-19be3101a4d2dfe8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Leaks"></p>
+<p>这个时候 iOS 模拟器会运行起来，我们在模拟器里进行一些界面的切换操作。稍等几秒钟，就可以看到 Instruments 检测到了我们的这次循环引用。Instruments 中会用一条红色的条来表示一次内存泄漏的产生。<br><img src="http://upload-images.jianshu.io/upload_images/3111822-0c437827bc988142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="切换到 Leaks 这栏，点击”Cycles &amp; Roots”，就可以看到以图形方式显示出来的循环引用。这样我们就可以非常方便地找到循环引用的对象了"><br><img src="http://upload-images.jianshu.io/upload_images/3111822-e2d4025bf193c74f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="代码截图"></p>
+<p>如果出现下图的情况 那么说明Profile中的Build Configuration 选的不是Debug<br><img src="http://upload-images.jianshu.io/upload_images/3111822-d8d4d51c27f23a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Profile错误"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-2d8596df9048a6f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改 Profile中的Build Configuration "><br>然后重启Xcode,重新 Product -&gt; Profile 就可以了，还不行就重启电脑. </p>
+<p>####总结<br>在ARC的环境下，iOS开发在内存管理方面的工作大部分都不用手动来实现了,但是我认为，我们还是需要去理解引用计数这种内存管理方式,注意循环引用的问题.<br>学会使用 Instruments 工具来调试项目</p>
+<p>最后,愿大家共同进步.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524666096748&di=417262a49b4e40c4c09b62a8533d28d1&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F14966643566382649569.jpeg%3Fid%3D0%26from%3Dexport" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            我叫壮骨,是一名iOS程序猿,这是我的博客，上面都是一些自己平时总结使用的.可能会有些小问题.如果发现了可以联系我. QQ: 956977073, 愿大家一起成长.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/09/iOS - Cell自带的长按复制/">iOS - Cell自带的长按复制</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/07/iOS - KVO/">iOS - KVO</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/01/iOS - 线程  进程 的通信/">iOS - 线程 / 进程 的通信</a>
+        </p>
+    
+        <p>
+            <a href="/2018/01/31/iOS - RunTime常用方法/">iOS - KVO</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://wuliangwang.github.io/">wuliangwang</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

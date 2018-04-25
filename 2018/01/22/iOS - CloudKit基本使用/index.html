@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="#####什么是CloudKit
+
+在此之前可能大家都都知道苹果有iCloud功能,也就是iCloud Drive 了——iCloud Drive 是可以存储用户数据和文件的地方，以便在其他设备也能够访问。iOS8.0以后推出了帮助我们在应用里也能够轻松访问这些数据的框架 CloudKit。Clou">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS - CloudKit基本使用"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS - CloudKit基本使用 - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - CloudKit基本使用</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-01-22</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>#####什么是CloudKit</p>
+<blockquote>
+<p>在此之前可能大家都都知道苹果有iCloud功能,也就是iCloud Drive 了——iCloud Drive 是可以存储用户数据和文件的地方，以便在其他设备也能够访问。iOS8.0以后推出了帮助我们在应用里也能够轻松访问这些数据的框架 <a href="https://developer.apple.com/documentation/cloudkit" target="_blank" rel="noopener">CloudKit</a>。<br><br>CloudKit 提供 API 让你能够访问 iCloud 服务器；它可以使用用户的 iCloud 账户来创建一个用户，并且拥有可供每个用户访问的公开权限的数据库，以及每个用户自己的私有数据库来存储信息；你也可以通过 CloudKit 的文件存储系统来存储结构化数据和大文件；这一切都不仅仅发生在用户本地，数据被存储在云端，用户可以在任意其它设备上访问。<br><br>总的来说，CloudKit 是你所熟知的数据库、文件存储、用户认证系统的集合服务。有了 CloudKit 的帮助，你不需要担心这些数据库什么的，只要专注在应用开发上就好了。</p>
+</blockquote>
+<p>#####CloudKit 基础对象类型<br>CloudKit 的基础对象类型有 7 种。这些对象类型可能和你在其他编程领域了解的类似对象类型稍有差别。</p>
+<ul>
+<li><p>CKContainer: Containers 就像应用运行的沙盒一样，一个应用只能访问自己沙盒中的内容而不能访问其他应用的。Containers 就是最外层容器，每个应用有且仅有一个属于自己的 container。（事实上，经过开发者授权配置 CloudKit Dashboard 之后，一个应用也可以访问其他应用的 container。）</p>
+</li>
+<li><p>CKDatabase: Database 即数据库，私有数据库用来存储敏感信息，比如说用户的性别年龄等，用户只能访问自己的私有数据库。应用也有一个公开的数据库来存储公共信息，例如你在构建一个根据地理位置签到的应用，那么地理位置信息就应该存储在公共数据库里以便所有用户都能访问到。</p>
+</li>
+<li><p>CKRecord: 即数据库中的一条数据记录。CloudKit 使用 record 通过 k/v 结构来存储结构化数据。关于键值存储，目前值的架构支持 NSString、NSNumber、NSData、NSDate、CLLocation，和 CKReference、CKAsset，以及存储以上数据类型的数组。</p>
+</li>
+<li><p>CKRecordZone: Record 不是以零散的方式存在于 database 之中的，它们位于 record zones 里。每个应用都有一个 default record zone，你也可以有自定义的 record zone。</p>
+</li>
+<li><p>CKRecordIdentifier: 是一条 record 的唯一标识，用于确定该 record 在数据库中的唯一位置。</p>
+</li>
+<li><p>CKReference: Reference 很像 RDBMS 中的引用关系。还是以地理位置签到应用为例，每个地理位置可以包含很多用户在该位置的签到，那么位置与签到之间就形成了这样一种包含式的从属关系。</p>
+</li>
+<li><p>CKAsset: 即资源文件，例如二进制文件。还是以签到应用为例，用户签到时可能还包含一张照片，那么这张照片就会以 asset 形式存储起来。</p>
+</li>
+</ul>
+<h5 id="使用-CloudKit"><a href="#使用-CloudKit" class="headerlink" title="使用 CloudKit"></a>使用 CloudKit</h5><h5 id="1-注册准备"><a href="#1-注册准备" class="headerlink" title="1.  注册准备"></a>1.  注册准备</h5><h6 id="1-1-前往开发者中心-注册一个-iCloud-Container"><a href="#1-1-前往开发者中心-注册一个-iCloud-Container" class="headerlink" title="1.1  前往开发者中心 注册一个 iCloud Container"></a>1.1  前往开发者中心 注册一个 iCloud Container</h6><p> <strong><em>注意点</em></strong></p>
+<ul>
+<li>Container 的 ID 必须以  iCloud 开头 , 这个ID并不是 APP的Bundle ID</li>
+<li>iCloud Container 创建无法删除,起码目前开发中心还没有给出删除的入口,所以创建时 必须要要慎重,尤其是 Container ID ，因为一旦创建 Container 的 ID 无法更改<br><img src="http://upload-images.jianshu.io/upload_images/3111822-406cb42335197099.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="注册iCloud Containers"></li>
+</ul>
+<h6 id="1-2-配置真机调试证书"><a href="#1-2-配置真机调试证书" class="headerlink" title="1.2 配置真机调试证书"></a>1.2 配置真机调试证书</h6><p>1.2.1 原因<br> 如果在虚拟机上面跑，是无法调用到iCloud 上面的数据的<br><img src="http://upload-images.jianshu.io/upload_images/3111822-24d2b5c691ce2d97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="无法发送有效签名"><br>1.2.2 配置一个带有 iCloud 功能的调试证书<br><img src="http://upload-images.jianshu.io/upload_images/3111822-54715eacb8bf14cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤1"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-c23f783ee9dda11d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤2"></p>
+<p>创建完APP ID 后 可以看到 iCloud 功能并没有显示绿色 而是黄色 显示可配置 所以需要配置一下<br><img src="http://upload-images.jianshu.io/upload_images/3111822-bb75d6db68810ef0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤3"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-aff84de90862e0b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击编辑后进入"></p>
+<p>这个时候就可以看到之前创建的iCloud Container了<br><img src="http://upload-images.jianshu.io/upload_images/3111822-df4158b6e773a93a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择 iCloud Container "><br>选择iCloud Container 点击完成修改后 </p>
+<p>这里就可以看到 iCloud 功能变成绿色 激活状态了 ,上一步就是 iCloud Container 与 APP Bundle ID绑定<br><img src="http://upload-images.jianshu.io/upload_images/3111822-fa5d0eeec5be81b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OK的APP ID"></p>
+<p>然后通过 APP ID 创建调试证书,这里就不做详细说明了.步骤很简单</p>
+<h6 id="1-3项目配置"><a href="#1-3项目配置" class="headerlink" title="1.3项目配置"></a>1.3项目配置</h6><p><img src="http://upload-images.jianshu.io/upload_images/3111822-c46aa108dcca6c03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目配置"></p>
+<p>通过 CloudKit Dashboard 按钮 可以跳转到管理中心<br><img src="http://upload-images.jianshu.io/upload_images/3111822-4562f14c5b0a0cac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="管理中心"></p>
+<h5 id="2-增删改查"><a href="#2-增删改查" class="headerlink" title="2. 增删改查"></a>2. 增删改查</h5><p>导入框架<br><code>#import &lt;CloudKit/CloudKit.h&gt;</code></p>
+<p>2.1 绑定 Container 拿到  Database<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *containerWithIdentifier:UbiquityContainerIdentifier = @&quot;iCloud.com.xxxxxxx&quot;; // Container ID </span><br><span class="line">CKContainer *container = [CKContainer containerWithIdentifier:UbiquityContainerIdentifier];</span><br><span class="line">CKDatabase *publicDB = [container publicCloudDatabase];</span><br></pre></td></tr></table></figure></p>
+<p>我们从管理网站上面看到 只能查看 publicCloudDatabase 的数据 所以一般我们都用 publicCloudDatabase 获取  Database            <img src="http://upload-images.jianshu.io/upload_images/3111822-32530696bb017edf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="publicCloudDatabase"></p>
+<p>如果 Container ID 绑定错误 会报如下错误 (defaultContainer 返回的 CKContainer 也会报这个错误)<br><img src="http://upload-images.jianshu.io/upload_images/3111822-4a161e5640879d1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Container ID 绑定错误"></p>
+<p>2.2  增加数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CKRecordID *personRecordID  = [[CKRecordID alloc] initWithRecordName:@&quot;Person&quot;];</span><br><span class="line">CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:@&quot;Person&quot; recordID:personRecordID];</span><br><span class="line">[personRecord setValue:@&quot;hello,word&quot; forKey:@&quot;name&quot;];</span><br><span class="line">[personRecord setValue:@18 forKey:@&quot;age&quot;];</span><br><span class="line">[self.publicDB saveRecord:personRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) &#123;</span><br><span class="line">    if (error) &#123;</span><br><span class="line">        NSLog(@&quot;保存失败 %@&quot;,error);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        NSLog(@&quot;保存成功:%@&quot;,record);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-632e38d37318e571.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重复添加"><br>如果重复添加 控制台会输出上图错误,重复添加是指 <code>recordID</code> 相同, 如果 <code>recordID</code> 不同, <code>RecordType</code> 相同, 那么可以添加成功,只不过之前 <code>RecordType</code> 对应的 <code>Record</code> 会被替换</p>
+<p>2.3 查询<br>通过  CKRecordID 查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CKRecordID *fetchRecordID = [[CKRecordID alloc] initWithRecordName:@&quot;Person&quot;];</span><br><span class="line">[self.publicDB fetchRecordWithID:fetchRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,record.allKeys);</span><br><span class="line">    [record.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">        NSLog(@&quot;key: %@  value:%@&quot;,obj,[record objectForKey:obj]);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-90c6754591f4f325.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查询结果"></p>
+<p>2.4 修改<br>先通过  CKRecordID 查询到对应的  CKRecord , 然后修改 CKRecord 的值 重新保存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CKRecordID *editRecordID = [[CKRecordID alloc] initWithRecordName:@&quot;Person&quot;];</span><br><span class="line">[self.publicDB fetchRecordWithID:editRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) &#123;</span><br><span class="line">    if (record != nil) &#123;</span><br><span class="line">        record[@&quot;name&quot;] = @&quot;hello,iOS&quot;;</span><br><span class="line">        [self.publicDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) &#123;</span><br><span class="line">            if (error) &#123;</span><br><span class="line">                NSLog(@&quot;修改失败:%@&quot;,error);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                NSLog(@&quot;修改成功 %@&quot;,record);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-1fe6cc8f895fd0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改结果"></p>
+<p>2.5 删除<br>通过  CKRecordID 删除 这样下次添加时 就不会说已经存在， 因为只有 RecordID 相同时才会报重复添加的错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CKRecordID *delegateRecordID = [[CKRecordID alloc] initWithRecordName:@&quot;Person&quot;];</span><br><span class="line">[self.publicDB deleteRecordWithID:delegateRecordID completionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) &#123;</span><br><span class="line">    if (error) &#123;</span><br><span class="line">        NSLog(@&quot;删除失败:%@&quot;,error);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        NSLog(@&quot;删除成功 %@&quot;,recordID);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-dfef3475a7856d1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除结果"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-c68274d184e39d61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="管理网站的数据截图"></p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524666096748&di=417262a49b4e40c4c09b62a8533d28d1&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F14966643566382649569.jpeg%3Fid%3D0%26from%3Dexport" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            我叫壮骨,是一名iOS程序猿,这是我的博客，上面都是一些自己平时总结使用的.可能会有些小问题.如果发现了可以联系我. QQ: 956977073, 愿大家一起成长.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/09/iOS - Cell自带的长按复制/">iOS - Cell自带的长按复制</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/07/iOS - KVO/">iOS - KVO</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/01/iOS - 线程  进程 的通信/">iOS - 线程 / 进程 的通信</a>
+        </p>
+    
+        <p>
+            <a href="/2018/01/31/iOS - RunTime常用方法/">iOS - KVO</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://wuliangwang.github.io/">wuliangwang</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

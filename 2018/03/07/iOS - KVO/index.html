@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="####什么是KVO
+
+KVO (Key-Value Observing) 是 Objective-C 对观察者设计模式的一种实现，俗称键值监听。
+KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某个属性(例如A中的字符串name)发生更改时，对象会获得通知，并作出相应处理。且不需要给被观">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS - KVO"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS - KVO - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - KVO</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-03-07</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>####什么是KVO</p>
+<ul>
+<li>KVO (Key-Value Observing) 是 Objective-C 对<strong><em>观察者设计模式</em></strong>的一种实现，俗称键值监听。</li>
+<li>KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某个属性(例如A中的字符串name)发生更改时，对象会获得通知，并作出相应处理。且不需要给被观察的对象添加任何额外代码，就能使用KVO机制。</li>
+</ul>
+<p>####使用<br>实现KVO则必须实现NSKeyValueObServing协议，NSObject实现了该协议。<br> 1  注册，指定被观察者的属性<br> 2  实现回调方法<br> 3  移除观察</p>
+<ul>
+<li><p>注册指定Key路径的监听器<br><code>- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</code><br>参数解析<br><strong>observer:</strong> 观察者,也就是KVO通知的订阅者。订阅者必须实现<strong><em>observeValueForKeyPath:ofObject:change:context:</em></strong> 方法<br><strong>keyPath:</strong> 描述将要观察的属性，相对于被观察者。<br><strong>options:</strong> KVO的一些属性配置；有四个选项。 </p>
+<pre><code>NSKeyValueObservingOptionNew:  提供更改前的值
+NSKeyValueObservingOptionOld:  提供更改后的值
+NSKeyValueObservingOptionInitial:  观察最初的值（在注册观察服务时会调用一次触发方法）
+NSKeyValueObservingOptionPrior:  分别在值修改前后触发方法（即一次修改有两次触发）
+</code></pre><p><strong>context:</strong> 上下文，这个会传递到订阅着的函数中，用来区分消息，所以应当是不同的。</p>
+</li>
+<li><p>实现回调方法<br><code>- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;</code><br>参数解析<br><strong>keyPath:</strong> 被监听的keyPath , 用来区分不同的KVO监听。<br><strong>object:</strong> 被观察修改后的对象（可以通过object获得修改后的值）<br><strong>change:</strong> 保存信息改变的字典（可能有旧的值，新的值等,根据配置 <strong><em>options</em></strong> 决定）<br><strong>context:</strong> 上下文，用来区分不同的KVO监听</p>
+</li>
+<li><p>移除观察<br><code>- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</code><br> <code>- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath  context:(void *)context;</code><br>参数解析<br><strong>observer:</strong> 观察者.<br><strong>keyPath:</strong> 被监听的keyPath , 用来区分不同的KVO监听。<br><strong>context:</strong> 上下文，用来区分不同的KVO监听<br>再确定不需要观察被观察者对象的属性时，需要及时移除，否则容易造成控制器不释放，从而内存泄漏.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">[self.testPerson addObserver:self forKeyPath:@&quot;age&quot; options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];</span><br><span class="line"></span><br><span class="line">2. 在被监听对象的属性发生改变的时候调用(有多个被观察者或多个属性时，可通过判断 keyPath,object,context 来确定是不是对应的)</span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context&#123;</span><br><span class="line">    NSLog(@&quot;change:%@&quot;,change);</span><br><span class="line">    NSLog(@&quot;object:%@&quot;,object);</span><br><span class="line">    if ([keyPath isEqualToString:@&quot;age&quot;]) &#123;</span><br><span class="line">        // 可以在这里实现监听对象属性改变后的操作</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">3.</span><br><span class="line">- (void)removeKVO&#123;</span><br><span class="line">    [self.testPerson removeObserver:self forKeyPath:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-20ac6f86d7df25a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打印结果"><br>上图中 <code>change</code> 中的值 根据注册监听器时填写的 <code>options</code> 决定<br>如果 <code>options</code> 包含 <strong>NSKeyValueObservingOptionNew</strong> 那么 <code>change</code> 中就包含key <code>new</code><br>如果 <code>options</code> 包含 <strong>NSKeyValueObservingOptionOld</strong> 那么 <code>change</code> 中就包含key <code>old</code></p>
+<p>####KVO实现原理的理解<br>KVO运用了一个isa-swizzling的机制<br>当某个类对象第一次被观察时，系统会在运行时动态地创建该类的一个 <strong>‘派生类’</strong>,派生类继承自被观察类, 在这个派生类中重写该类中所有被观察属性的setter方法。然后在派生类的setter方法中实现通知机制，派生类的setter方法中还依赖了 <code>willChangeValueForKey:</code>和<code>didChangevlueForKey:</code></p>
+<p>同时派生类会重写 class 方法来 ‘隐瞒’,因此当我们从应用层面上看来，完全没有意识到有新的类出现，这是系统“隐瞒”了对KVO的底层实现过程，让我们误以为还是原来的类。</p>
+<p>然后系统将该对象的isa指针指向先创建的派生类，所有这个被观察对象就成了派生类对象了，调用这个被观察对象的setter方法就会调用派生类中重写的setter方法，从而就激活了通知机制。<br>派生类中也重写了dealloc方法来实现释放。<br>当该被观察者对象没有被观察的属性时，删除动态创建的派生类。</p>
+<p>简单而言：实例对象在被观察时，生成派生类，派生类在setter方法中valuewillchange方法和valuesdidchanged方法里发出通知，并且通过isa-swizzling，从而使实例对象成为派生类的对象，所以实例对象在setter属性时可以产生通知。达到观察的目的</p>
+<p>####最后<br>KVO的响应和KVO观察的值变化是在一个线程上的，所以，大多数时候，不要把KVO与多线程混合起来。除非能够保证所有的观察者都能线程安全的处理KVO。<br>由于Context 通常用来区分不同的KVO，所以最好保证context的唯一性。</p>
+<p><strong>以上是壮骨结合文档和一些资料和自己的使用整理的，如果有什么问题或者不合适的地方，麻烦指出,谢谢.</strong></p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524666096748&di=417262a49b4e40c4c09b62a8533d28d1&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F14966643566382649569.jpeg%3Fid%3D0%26from%3Dexport" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            我叫壮骨,是一名iOS程序猿,这是我的博客，上面都是一些自己平时总结使用的.可能会有些小问题.如果发现了可以联系我. QQ: 956977073, 愿大家一起成长.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/09/iOS - Cell自带的长按复制/">iOS - Cell自带的长按复制</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/07/iOS - KVO/">iOS - KVO</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/01/iOS - 线程  进程 的通信/">iOS - 线程 / 进程 的通信</a>
+        </p>
+    
+        <p>
+            <a href="/2018/01/31/iOS - RunTime常用方法/">iOS - KVO</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://wuliangwang.github.io/">wuliangwang</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

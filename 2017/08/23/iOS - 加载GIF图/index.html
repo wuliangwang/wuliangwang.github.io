@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="#1.WebView
+#####UIWebView12345UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,200,200)];[self.view addSubview:webView]; NSString ">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS - 加载GIF图"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS - 加载GIF图 - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - 加载GIF图</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-08-23</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>#1.WebView</p>
+<p>#####UIWebView<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,200,200)];</span><br><span class="line">[self.view addSubview:webView]; </span><br><span class="line">NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;1&quot; ofType:@&quot;gif&quot;];</span><br><span class="line">NSURL *url = [NSURL URLWithString:path]; // 可以直接是网络URL</span><br><span class="line">[webView loadRequest:[NSURLRequest requestWithURL:url]];</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-811b1161f6a878c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="UIWebView实现代码截图"></p>
+<p>#####WKWebView<br>WKWebView实习和UIWebView一样,也是将GIF图片的URL加载出来</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-8c9bee75872c7ee5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="WKWebView代码实现"></p>
+<p>如果 [[NSBundle mainBundle] pathForResource:@”” ofType:@””] 无法获取到文件<br>将一个文件导入到工程中后，用[[NSBundle mainBundle] pathForResource:@”” ofType:@””]来获取到该文件时，一直无法拿到这个文件，解决方法如下 </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-1817b1b4e03adda6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="在Build Phases -&gt; Copy Bundle Resources下点击加号（+）"></p>
+<p>#2.SDWebImage</p>
+<h5 id="4-0-0以前"><a href="#4-0-0以前" class="headerlink" title="4.0.0以前"></a>4.0.0以前</h5><p>SDWebImage 提供了一个分类 ‘UIImage+GIF’ 来实现加载GIF图<br>不能直接使用sd_setImageWithURL:placeholderImage . 这个方法是不能播放本地Gif的，它只能显示Gif的第一张图片而已。</p>
+<p>UIImage+GIF.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@interface UIImage (GIF)</span><br><span class="line">+ (UIImage *)sd_animatedGIFNamed:(NSString *)name;</span><br><span class="line">+ (UIImage *)sd_animatedGIFWithData:(NSData *)data;</span><br><span class="line">- (UIImage *)sd_animatedImageByScalingAndCroppingToSize:(CGSize)size;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>本地GIF图代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;1&quot; ofType:@&quot;gif&quot;];</span><br><span class="line">NSData *data = [NSData dataWithContentsOfFile:path];</span><br><span class="line">UIImage *image = [UIImage sd_animatedGIFWithData:data];</span><br><span class="line">self.imageView.image = image;</span><br></pre></td></tr></table></figure></p>
+<p>网络GIF图 代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1503467551868&amp;di=f53202da5f5fbd6799c38da661d35ec6&amp;imgtype=0&amp;src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F160622%2F2-1606221R445U9.gif&quot;];</span><br><span class="line">SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];</span><br><span class="line">[downloader downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger               </span><br><span class="line">        expectedSize, NSURL * _Nullable targetURL) &#123;</span><br><span class="line">        //下载进度</span><br><span class="line">&#125; completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error,</span><br><span class="line">        BOOL finished) &#123;</span><br><span class="line">        UIImage *gifimage = [UIImage sd_animatedGIFWithData:data];</span><br><span class="line">        self.imageView.image = gifimage;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-0-0以上"><a href="#4-0-0以上" class="headerlink" title="4.0.0以上"></a>4.0.0以上</h5><p>SDWebImage 在4.0版本 更改加载GIF图片的使用方法,修改了 UIImage+’GIF’ 分类<br>将原有的三个方法删除掉两个, sd_animatedGIFWithData 也不能实现加载出GIF图片了,<br>新加方法 <figure class="highlight plain"><figcaption><span>判断图片是否是GIF图 (原理:判断UIImage的images参数是否为空)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIImage+GIF.h</span><br></pre></td></tr></table></figure></p>
+<p>/**</p>
+<ul>
+<li>Compatibility method - creates an animated UIImage from an NSData, it will only contain the 1st frame image<ul>
+<li>翻译: 兼容性方法 - 从NSData创建动画UIImage，它只包含第一帧图像<br>*/</li>
+</ul>
+<ul>
+<li>(UIImage <em>)sd_animatedGIFWithData:(NSData </em>)data;</li>
+</ul>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Checks if an UIImage instance is a GIF. Will use the <code>images</code> array<ul>
+<li>翻译: 检查UIImage实例是否是GIF。 将使用<code>images</code>数组<br>*/</li>
+</ul>
+<ul>
+<li>(BOOL)isGIF;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">从4.0版本开始 推出了 **FLAnimatedImage** 来实现加载GIF图</span><br><span class="line">如果您使用Cocapods，请将  ```pod&apos;SDWebImage / GIF&apos; ``` 添加到您的podfile中。</span><br><span class="line">要使用它，只需确保使用FLAnimatedImageView而不是UIImageView。</span><br><span class="line">注意：有一个向后兼容的功能，所以如果您仍然尝试将GIF加载到UIImageView中，它将仅将第一帧显示为静态图像。 详见:[SDwebImage](https://github.com/rs/SDWebImage)</span><br><span class="line"></span><br><span class="line">##### FLAnimatedImage 使用</span><br><span class="line">import &lt;FLAnimatedImageView+WebCache.h&gt;</span><br><span class="line"></span><br><span class="line">FLAnimatedImageView 加载本地GIF图</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>FLAnimatedImageView <em>imageView = [[FLAnimatedImageView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];<br>imageView.center = self.view.center;<br>[self.view addSubview:imageView];<br>NSString </em>path = [[NSBundle mainBundle] pathForResource:@”1” ofType:@”gif”];<br>NSData *data = [NSData dataWithContentsOfFile:path];<br>imageView.animatedImage = [FLAnimatedImage animatedImageWithGIFData:data];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">加载网络GIF图</span><br></pre></td></tr></table></figure></p>
+<p>FLAnimatedImageView <em>imageView = [[FLAnimatedImageView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];<br>imageView.center = self.view.center;<br>[self.view addSubview:imageView];<br>NSURL </em>url = [NSURL URLWithString:@”<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1503467551868&amp;di=f53202da5f5fbd6799c38da661d35ec6&amp;imgtype=0&amp;src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F160622%2F2-1606221R445U9.gif&quot;]" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1503467551868&amp;di=f53202da5f5fbd6799c38da661d35ec6&amp;imgtype=0&amp;src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F160622%2F2-1606221R445U9.gif&quot;]</a>;<br>[imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@”test”]];<br><code>`</code><br>其中 animatedImage 是 FLAnimatedImage 的实例对象<br>导入 &lt;FLAnimatedImageView+WebCache.h&gt; 后 FLAnimatedImageView 加载URL GIF图片 与UIImageView加载URL图片并无太大区别</p>
+<p>####优缺点:</p>
+<p>######SDWebImage<br>容器都是大家熟悉的UIImageView,方便操作，还可以设置ContentModel<br>4.0以前还能是设置GIF图的duration （进入.m 找到关键字修改值即可）<br>4.0以后: 推出 FLAnimatedImage 类,拥有了更多的属性</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-3cb40390a91e8222.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="4.0以前sd_animatedGIFWithData中duration的设定,这里是一个默认值,有需要可以修改"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3111822-3ebe24b98eca6503.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="FLAnimatedImage.h 部分截图"></p>
+<p>######webView<br>不能设置duration,也无法获取GIF图片的参数<br>容器为不常用的UIWebView 或者 WKWebView<br>无法更改图片的显示样式,只能改变控件的大小<br>方便快捷,不需要依赖第三方</p>
+<p>建议:<br> 有gif图，能给一个App添彩不少，但是我到目前为止还没有发现哪一个App中有大量的gif图展示的，一般项目中不会有大量的gif图存在（一些主要目的就是展示gif图的App除外），我自己的项目中也只是个别地方用到, GIF图一旦过多,肯定是影响性能的<br> 简单快捷时 可以是使用webview ，需要操作GIF图时<br>建议使用 SDWebImage, 毕竟是一个大多数项目都依赖的第三方库<br>UITablView 建议使用  SDWebImage</p>
+<p>####结尾:<br>加载GIF图还有很多种方式，<br>例如直接使用原生框架<imageio>来实现, 太过复杂<br>CADisplayLink / CAKeyframeAnimation 都能实现,就是太过于麻烦<br>GIF图拆分 使用序列帧也可以 太过于耗性能<br>如果大家项目中需要用到序列帧来实现加载动画 建议使用:<a href="https://github.com/airbnb/lottie-ios" target="_blank" rel="noopener">lottie-ios</a></imageio></p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524666096748&di=417262a49b4e40c4c09b62a8533d28d1&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F14966643566382649569.jpeg%3Fid%3D0%26from%3Dexport" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            我叫壮骨,是一名iOS程序猿,这是我的博客，上面都是一些自己平时总结使用的.可能会有些小问题.如果发现了可以联系我. QQ: 956977073, 愿大家一起成长.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/09/iOS - Cell自带的长按复制/">iOS - Cell自带的长按复制</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/07/iOS - KVO/">iOS - KVO</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/01/iOS - 线程  进程 的通信/">iOS - 线程 / 进程 的通信</a>
+        </p>
+    
+        <p>
+            <a href="/2018/01/31/iOS - RunTime常用方法/">iOS - KVO</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://wuliangwang.github.io/">wuliangwang</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
