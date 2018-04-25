@@ -1,103 +1,146 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="en">
 
-  
-  <title>iOS - 人脸特征关键点获取 | wuliangwang</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS - 人脸特征关键点获取">
-<meta property="og:url" content="http://yoursite.com/2018/04/25/iOS - 人脸特征关键点获取/index.html">
-<meta property="og:site_name" content="wuliangwang">
-<meta property="og:description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-7ccf6b964fd9360d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-49bbd6e97abd7dcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-2bab80072b404b10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-95d918d29bb031e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-dae9273daed664c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-61b3fb41f946797f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-f3a41a525e41b425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-45ad1bd1fcd8054d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-4cd278a81e125d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-71956960213666c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3111822-c98b1d48e42fa632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-04-25T11:04:28.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS - 人脸特征关键点获取">
-<meta name="twitter:description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包  Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用 stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV. 1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,下载地址  1.1.2 将OpenCV的拓展包下载下来, 下载地">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3111822-7ccf6b964fd9360d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-  
-    <link rel="alternate" href="/atom.xml" title="wuliangwang" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="1. OpenCV + Face + stasmOpenCV  OpenCV3.0以上的包
+ Face 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用
+stasm是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV.
+1.1.1    首先先从OpenC">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS - 人脸特征关键点获取"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS - 人脸特征关键点获取 - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">wuliangwang</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-iOS - 人脸特征关键点获取" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/25/iOS - 人脸特征关键点获取/" class="article-date">
-  <time datetime="2018-04-24T16:00:00.000Z" itemprop="datePublished">2018-04-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      iOS - 人脸特征关键点获取
-    </h1>
-  
 
-      </header>
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-OpenCV-Face-stasm"><a href="#1-OpenCV-Face-stasm" class="headerlink" title="1. OpenCV + Face + stasm"></a>1. OpenCV + Face + stasm</h3><p><code>OpenCV</code>  OpenCV3.0以上的包</p>
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="https://upload.jianshu.io/users/upload_avatars/3111822/4c273b30bfd5.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tag" 
+                    title="Tags">
+                    Tags
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - 人脸特征关键点获取</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-04-25</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <h3 id="1-OpenCV-Face-stasm"><a href="#1-OpenCV-Face-stasm" class="headerlink" title="1. OpenCV + Face + stasm"></a>1. OpenCV + Face + stasm</h3><p><code>OpenCV</code>  OpenCV3.0以上的包</p>
 <p> <code>Face</code> 是指的是OpenCV的拓展包,iOS没有直接集成. 需要收到打包成静态库文件使用</p>
 <p><code>stasm</code>是一个已经写好的c++算法，用来获取人脸信息，依赖于OpenCV.</p>
 <p>1.1.1    首先先从OpenCV的官网将OpenCV的包下载下来,<a href="https://opencv.org/" target="_blank" rel="noopener">下载地址</a></p>
@@ -159,111 +202,100 @@
 <p><img src="https://upload-images.jianshu.io/upload_images/3111822-c98b1d48e42fa632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优图SDK效果图"></p>
 <h4 id="其他SDK-科大讯飞，百度，阿里，face-…-等等有很多大公司都提供了人脸信息获取的接口"><a href="#其他SDK-科大讯飞，百度，阿里，face-…-等等有很多大公司都提供了人脸信息获取的接口" class="headerlink" title="其他SDK, 科大讯飞，百度，阿里，face++…. 等等有很多大公司都提供了人脸信息获取的接口"></a>其他SDK, 科大讯飞，百度，阿里，face++…. 等等有很多大公司都提供了人脸信息获取的接口</h4><p>第三方SDK 优缺点<br><strong>优点:</strong> 集成方便,识别快, 精确率高。<br><strong>缺点:</strong> 收费,需要依赖网络请求. 也提供了本地识别的SDK,价格很高.</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/25/iOS - 人脸特征关键点获取/" data-id="cjgeztz690005gwf9b8noor8z" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2018/03/09/cell_copy/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Cell自带的长按复制</div>
-    </a>
-  
-</nav>
+                    
+                    <!-- Tags Bottom -->
+                    
 
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
-    </div>
-  </div>
+                    <!-- Comments -->
+                    
 
 
-  
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            My name is Jonathan Klughertz and this is my blog.<br>I am a full stack software engineer with a strong front-end focus.<br> I currently live and work in Singapore, hit me up if you are in the region.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
+        <p>
             <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/09/cell_copy/">Cell自带的长按复制</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/01/APP_Process_Threads/">iOS - 线程 / 进程 的通信</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/13/WebKit_JS/">WebKit与JS的简单交互</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 wuliangwang<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+        </p>
     
+        <p>
+            <a href="/2018/03/09/cell_copy/">Cell自带的长按复制</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/01/APP_Process_Threads/">iOS - 线程 / 进程 的通信</a>
+        </p>
+    
+        <p>
+            <a href="/2017/09/13/WebKit_JS/">WebKit与JS的简单交互</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="https://wuliangwang.github.io/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
 </body>
+
 </html>
