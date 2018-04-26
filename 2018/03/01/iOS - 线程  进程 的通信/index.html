@@ -15,7 +15,7 @@
 
 
 在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，对应的线程间通信
-#####1.1 NSThreadNSThread可以先将">
+1.1 NSThreadNSThread可以先将自己的当前">
     
 
     <!--Author-->
@@ -141,12 +141,11 @@
 </li>
 </ul>
 <p>在iOS多线程开发中，有NSThread、GCD、NSOpeartion几种方式，<br>对应的线程间通信</p>
-<p>#####1.1 NSThread<br><code>NSThread可以先将自己的当前线程对象注册到某个全局的对象中去，这样相互之间就可以获取对方的线程对象，然后就可以使用下面的方法进行线程间的通信了，由于主线程比较特殊，所以框架直接提供了在主线程执行的方法</code></p>
+<h5 id="1-1-NSThread"><a href="#1-1-NSThread" class="headerlink" title="1.1 NSThread"></a>1.1 NSThread</h5><p><code>NSThread可以先将自己的当前线程对象注册到某个全局的对象中去，这样相互之间就可以获取对方的线程对象，然后就可以使用下面的方法进行线程间的通信了，由于主线程比较特殊，所以框架直接提供了在主线程执行的方法</code></p>
 <p>回到主线程执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> *  aSelector： 执行方法</span><br><span class="line"> *  arg: 携带参数</span><br><span class="line"> */</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</span><br></pre></td></tr></table></figure></p>
 <p>去指定线程执行任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> *   aSelector： 执行方法</span><br><span class="line"> *   thr: 指定线程</span><br><span class="line"> *   arg: 携带参数</span><br><span class="line"> */</span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;</span><br></pre></td></tr></table></figure></p>
 <p>关于 <strong>waitUntilDone</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waitUntilDone的含义:</span><br><span class="line">如果传入的是YES: 那么会等到主线程中的方法执行完毕, 才会继续执行下面其他行的代码</span><br><span class="line">如果传入的是NO: 那么不用等到主线程中的方法执行完毕, 就可以继续执行下面其他行的代码</span><br></pre></td></tr></table></figure></p>
-<p>#####1.2 GCD</p>
-<ul>
+<h5 id="1-2-GCD"><a href="#1-2-GCD" class="headerlink" title="1.2 GCD"></a>1.2 GCD</h5><ul>
 <li><p>什么是GCD<br>全称是Grand Central Dispatch，可译为“牛逼的中枢调度器”<br>纯C语言，提供了非常多强大的函数</p>
 </li>
 <li><p>GCD的使用<br>GCD中有2个核心概念<br>（1）任务：执行什么操作<br>（2）队列：用来存放任务</p>
@@ -159,8 +158,7 @@
 </li>
 </ul>
 <p>关于GCD 远远不止这些功能, 这里这是讲了最基本的简单通信. </p>
-<p>#####1.3 NSOperation</p>
-<ul>
+<h5 id="1-3-NSOperation"><a href="#1-3-NSOperation" class="headerlink" title="1.3 NSOperation"></a>1.3 NSOperation</h5><ul>
 <li><p>简介<br>NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。</p>
 </li>
 <li><p>NSOperation实现多线程的使用步骤分为三步：<br>创建任务：先将需要执行的操作封装到一个NSOperation对象中。<br>创建队列：创建NSOperationQueue对象。<br>将任务加入到队列中：然后将NSOperation对象添加到NSOperationQueue中。</p>
@@ -180,9 +178,8 @@
 </li>
 </ul>
 <p>NSOperation 和GCD一样 不止以上这些功能，这里只是讲述了基本的使用和简单的线程通信.</p>
-<p>####2.进程的通信<br>进程是容纳运行一个程序所需要所有信息的容器。在iOS中每个APP里就一个进程，所以进程间的通信实际上是APP之间的通信.</p>
-<p>#####2.1 URL Scheme</p>
-<ul>
+<h4 id="2-进程的通信"><a href="#2-进程的通信" class="headerlink" title="2.进程的通信"></a>2.进程的通信</h4><p>进程是容纳运行一个程序所需要所有信息的容器。在iOS中每个APP里就一个进程，所以进程间的通信实际上是APP之间的通信.</p>
+<h5 id="2-1-URL-Scheme"><a href="#2-1-URL-Scheme" class="headerlink" title="2.1 URL Scheme"></a>2.1 URL Scheme</h5><ul>
 <li><p>什么是URL Scheme<br>由于苹果的app都是在沙盒中，相互是不能访问数据的。但是苹果还是给出了一个可以在app之间跳转的方法：URL Scheme。简单的说，URL Scheme就是一个可以让app相互之间可以跳转的协议。每个app的URL Scheme都是不一样的，如果存在一样的URL Scheme，那么系统就会响应先安装那个app的URL Scheme，因为后安装的app的URL Scheme被覆盖掉了，是不能被调用的。</p>
 </li>
 <li><p>URL Scheme怎么使用<br>App1通过openURL的方法跳转到App2，并且在URL中带上想要的参数，有点类似http的get请求那样进行参数传递。</p>
@@ -194,16 +191,15 @@
 <p>源 APP1 的代码调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIApplication *application = [UIApplication sharedApplication];</span><br><span class="line">NSURL *URL = [NSURL URLWithString:@&quot;testApp2://hello,word&quot;];</span><br><span class="line">[application openURL:URL options:@&#123;&#125; completionHandler:nil];</span><br></pre></td></tr></table></figure></p>
 <p>目标 APP2 的代码接收<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AppDelegate.m 中</span><br><span class="line">- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey,id&gt; *)options&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,url);</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/3111822-96a29b608cfdec57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打印结果"></p>
-<p>#####2.2 UIPasteboard<br>UIPasteboard是剪切板功能，因为iOS的原生控件UITextView，UITextField 、UIWebView，我们在使用时如果长按，就会出现复制、剪切、选中、全选、粘贴等功能，这个就是利用了系统剪切板功能来实现的。而每一个App都可以去访问系统剪切板，所以就能够通过系统剪贴板进行App间的数据传输了。<br>UIPasteboard典型的使用场景就是淘宝的淘口令。</p>
+<h5 id="2-2-UIPasteboard"><a href="#2-2-UIPasteboard" class="headerlink" title="2.2 UIPasteboard"></a>2.2 UIPasteboard</h5><p>UIPasteboard是剪切板功能，因为iOS的原生控件UITextView，UITextField 、UIWebView，我们在使用时如果长按，就会出现复制、剪切、选中、全选、粘贴等功能，这个就是利用了系统剪切板功能来实现的。而每一个App都可以去访问系统剪切板，所以就能够通过系统剪贴板进行App间的数据传输了。<br>UIPasteboard典型的使用场景就是淘宝的淘口令。</p>
 <ul>
 <li>使用<br>源APP赋值<br><code>[[UIPasteboard generalPasteboard] setString:@&quot;hello,word&quot;];</code><br>目标APP取值<br><code>NSString *value = [UIPasteboard generalPasteboard].string;</code></li>
 </ul>
-<p>#####2.3 Keychain</p>
-<blockquote>
+<h5 id="2-3-Keychain"><a href="#2-3-Keychain" class="headerlink" title="2.3 Keychain"></a>2.3 Keychain</h5><blockquote>
 <p>Keychain是iOS中一个安全存储容器，本质是一个sqlite数据库，位置在/private/var/Keychains/keychain-2.db。它是独立于每个App的沙盒之外的，所以即使App被删除之后，Keychain里面的信息依然存在。基于安全和独立于app沙盒的两个特性，Keychain主要用于给app保存登录和身份凭证等敏感信息，这样只要用户登录过，即使用户删除了app重新安装也不需要重新登录。<br>Keychain用于App间通信的一个典型场景也和app的登录相关，就是统一账户登录平台。使用同一个账号平台的多个app，只要其中一个app用户进行了登录，其他app就可以实现自动登录不需要用户多次输入账号和密码。一般开放平台都会提供登录SDK，在这个SDK内部就可以把登录相关的信息都写到keychain中，这样如果多个app都集成了这个SDK，那么就可以实现统一账户登录了。</p>
 </blockquote>
 <p> <a href="https://www.jianshu.com/p/6bc772bdeece" target="_blank" rel="noopener">具体使用</a><br>目前我自己还不太熟悉这个框架的使用,后续了解清楚会补充该框架的本人理解及使用方法.</p>
-<p>#####2.4 分享<br>通过将源APP数据分享给目标APP 实现通信<br>原生分享 </p>
+<h5 id="2-4-分享"><a href="#2-4-分享" class="headerlink" title="2.4 分享"></a>2.4 分享</h5><p>通过将源APP数据分享给目标APP 实现通信<br>原生分享 </p>
 <ul>
 <li><p>UIActivityViewController(轻量级信息分享),</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Items: 元素1是标题，元素2是URL</span><br><span class="line">UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@&quot;title&quot;,url] applicationActivities:nil];</span><br><span class="line">    </span><br><span class="line">[self presentViewController:avc animated:YES completion:nil];</span><br><span class="line">    </span><br><span class="line">//分享结果回调方法</span><br><span class="line">UIActivityViewControllerCompletionWithItemsHandler myblock = ^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError)&#123;</span><br><span class="line">    &#125;;</span><br><span class="line">avc.completionWithItemsHandler = myblock;</span><br></pre></td></tr></table></figure>

@@ -10,10 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="####什么是KVO
-
+        <meta name="description" content="什么是KVO
 KVO (Key-Value Observing) 是 Objective-C 对观察者设计模式的一种实现，俗称键值监听。
-KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某个属性(例如A中的字符串name)发生更改时，对象会获得通知，并作出相应处理。且不需要给被观">
+KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某个属性(例如A中的字符串name)发生更改时，对象会获得通知，并作出相应处理。且不需要给被观察的对象添">
     
 
     <!--Author-->
@@ -134,12 +133,11 @@ KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某�
                     
 
                     <!-- Main Post Content -->
-                    <p>####什么是KVO</p>
-<ul>
+                    <h4 id="什么是KVO"><a href="#什么是KVO" class="headerlink" title="什么是KVO"></a>什么是KVO</h4><ul>
 <li>KVO (Key-Value Observing) 是 Objective-C 对<strong><em>观察者设计模式</em></strong>的一种实现，俗称键值监听。</li>
 <li>KVO提供一种机制，指定一个被观察对象(例如A类)，当对象某个属性(例如A中的字符串name)发生更改时，对象会获得通知，并作出相应处理。且不需要给被观察的对象添加任何额外代码，就能使用KVO机制。</li>
 </ul>
-<p>####使用<br>实现KVO则必须实现NSKeyValueObServing协议，NSObject实现了该协议。<br> 1  注册，指定被观察者的属性<br> 2  实现回调方法<br> 3  移除观察</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>实现KVO则必须实现NSKeyValueObServing协议，NSObject实现了该协议。<br> 1  注册，指定被观察者的属性<br> 2  实现回调方法<br> 3  移除观察</p>
 <ul>
 <li><p>注册指定Key路径的监听器<br><code>- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</code><br>参数解析<br><strong>observer:</strong> 观察者,也就是KVO通知的订阅者。订阅者必须实现<strong><em>observeValueForKeyPath:ofObject:change:context:</em></strong> 方法<br><strong>keyPath:</strong> 描述将要观察的属性，相对于被观察者。<br><strong>options:</strong> KVO的一些属性配置；有四个选项。 </p>
 <pre><code>NSKeyValueObservingOptionNew:  提供更改前的值
@@ -159,7 +157,7 @@ NSKeyValueObservingOptionPrior:  分别在值修改前后触发方法（即一�
 <p>同时派生类会重写 class 方法来 ‘隐瞒’,因此当我们从应用层面上看来，完全没有意识到有新的类出现，这是系统“隐瞒”了对KVO的底层实现过程，让我们误以为还是原来的类。</p>
 <p>然后系统将该对象的isa指针指向先创建的派生类，所有这个被观察对象就成了派生类对象了，调用这个被观察对象的setter方法就会调用派生类中重写的setter方法，从而就激活了通知机制。<br>派生类中也重写了dealloc方法来实现释放。<br>当该被观察者对象没有被观察的属性时，删除动态创建的派生类。</p>
 <p>简单而言：实例对象在被观察时，生成派生类，派生类在setter方法中valuewillchange方法和valuesdidchanged方法里发出通知，并且通过isa-swizzling，从而使实例对象成为派生类的对象，所以实例对象在setter属性时可以产生通知。达到观察的目的</p>
-<p>####最后<br>KVO的响应和KVO观察的值变化是在一个线程上的，所以，大多数时候，不要把KVO与多线程混合起来。除非能够保证所有的观察者都能线程安全的处理KVO。<br>由于Context 通常用来区分不同的KVO，所以最好保证context的唯一性。</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>KVO的响应和KVO观察的值变化是在一个线程上的，所以，大多数时候，不要把KVO与多线程混合起来。除非能够保证所有的观察者都能线程安全的处理KVO。<br>由于Context 通常用来区分不同的KVO，所以最好保证context的唯一性。</p>
 <p><strong>以上是壮骨结合文档和一些资料和自己的使用整理的，如果有什么问题或者不合适的地方，麻烦指出,谢谢.</strong></p>
 
                     

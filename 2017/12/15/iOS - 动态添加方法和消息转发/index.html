@@ -10,9 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="#####假设假设，声明一个 TestObect 的类，.h中声明了 test方法,但是.m中未实现，但是调用了这个方法会报一个经典的错误
+        <meta name="description" content="假设假设，声明一个 TestObect 的类，.h中声明了 test方法,但是.m中未实现，但是调用了这个方法会报一个经典的错误
 ok，前提已经说完了，我们就从找这个错误原因讲起。
-解决首先，该方法在调用时，系统会查看这个对象能否接收这个消息（查看这个类有没有这个方法，或者有没有实现这个方">
+解决首先，该方法在调用时，系统会查看这个对象能否接收这个消息（查看这个类有没有这个方法，或者有没有实现这个方法。），如">
     
 
     <!--Author-->
@@ -133,7 +133,7 @@ ok，前提已经说完了，我们就从找这个错误原因讲起。
                     
 
                     <!-- Main Post Content -->
-                    <p>#####假设<br>假设，声明一个 <code>TestObect</code> 的类，.h中声明了 <code>test</code>方法,但是.m中未实现，但是调用了这个方法会报一个经典的错误<br><img src="http://upload-images.jianshu.io/upload_images/3111822-d2d8794b21d502e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有找到方法实现"></p>
+                    <h5 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h5><p>假设，声明一个 <code>TestObect</code> 的类，.h中声明了 <code>test</code>方法,但是.m中未实现，但是调用了这个方法会报一个经典的错误<br><img src="http://upload-images.jianshu.io/upload_images/3111822-d2d8794b21d502e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有找到方法实现"></p>
 <p>ok，前提已经说完了，我们就从找这个错误原因讲起。</p>
 <h5 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h5><p>首先，该方法在调用时，系统会查看这个对象能否接收这个消息（查看这个类有没有这个方法，或者有没有实现这个方法。），如果不能并且只在不能的情况下，就会调用下面这几个方法，给你“补救”的机会，你可以先理解为几套防止程序crash的备选方案，我们就是利用这几个方案进行消息转发，注意一点，前一套方案实现后一套方法就不会执行。如果这几套方案你都没有做处理，那么程序就会报错crash。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">方案一：</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel；</span><br><span class="line">方案二：</span><br><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector;</span><br><span class="line">方案三：</span><br><span class="line">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector;</span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation;</span><br></pre></td></tr></table></figure>
@@ -141,12 +141,10 @@ ok，前提已经说完了，我们就从找这个错误原因讲起。
 <h6 id="1-resolveInstanceMethod"><a href="#1-resolveInstanceMethod" class="headerlink" title="1.resolveInstanceMethod"></a>1.resolveInstanceMethod</h6><p>当你调用方法时，系统会调用 <code>resolveInstanceMethod</code> 这个方法,参数SEL就是你调用的方法，那么我们可以重写这个方法，从而实现动态添加一个方法，来使程序不会崩溃.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 需要导入 #import &lt;objc/runtime.h&gt;</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel&#123;</span><br><span class="line">    if (sel == @selector(test)) &#123;        </span><br><span class="line">        IMP imp = class_getMethodImplementation(self, @selector(run));</span><br><span class="line">        class_addMethod([self class], sel, imp, &quot;v@:&quot;);</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/3111822-20e65edd94ef9259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="动态添加方法"></p>
 <p>#####科普一下</p>
-<ol>
-<li><p>IMP获取<br>如果添加方法实现是用OC风格写的 那么用 <code>class_getMethodImplementation</code> 来获取IMP<br>如果是用C风格写的函数 </p>
+<h6 id="1-IMP获取"><a href="#1-IMP获取" class="headerlink" title="1.IMP获取"></a>1.IMP获取</h6><p>如果添加方法实现是用OC风格写的 那么用 <code>class_getMethodImplementation</code> 来获取IMP<br>如果是用C风格写的函数 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void run(id self, SEL _cmd) &#123;</span><br><span class="line">    NSLog(@&quot; %@ %s&quot;, sel_getName(_cmd));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel &#123;</span><br><span class="line">    if (sel == @selector(test)) &#123;</span><br><span class="line">        class_addMethod([self class], sel, (IMP)run, &quot;v@:&quot;);</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>class_addMethod 参数</p>
-</li>
+<ol>
+<li>class_addMethod 参数</li>
 </ol>
 <ul>
 <li>参数一: Class：我们需要一个class，比如我的[self class]。 </li>
