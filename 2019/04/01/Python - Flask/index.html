@@ -10,8 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="nilnil 是 Objective-C 对象空值的意思, 对应于未知类型 id 或者其他 Objective-C类型的对象 。
-12345NSString *someString = nil;NSURL *someURL = nil;id someObject = nil;if (anotherO">
+        <meta name="description" content="一 Flask 简介
+flask的诞生于2010年的愚人节，本来它只是作者无意间写的一个小玩具，没想到它却悄悄流行起来了。漫长的8年时间，flask一直没有发布一个严肃的正式版本，但是却不能阻挡它成了github上最受好评的Python Web框架。(网上看到)">
     
 
     <!--Author-->
@@ -21,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="iOS - nil,Nil,NULL,NSNull 的区别"/>
+        <meta property="og:title" content="Python - Flask基础"/>
     
 
     <!--Open Graph Description-->
@@ -43,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>iOS - nil,Nil,NULL,NSNull 的区别 - wuliangwang</title>
+    <title>Python - Flask基础 - wuliangwang</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
@@ -105,8 +105,8 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - nil,Nil,NULL,NSNull 的区别</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-01-25</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Python - Flask基础</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-04-01</p>
         </div>
     </div>
 
@@ -126,28 +126,21 @@
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                                <a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <h4 id="nil"><a href="#nil" class="headerlink" title="nil"></a>nil</h4><p><code>nil</code> 是 Objective-C 对象空值的意思, 对应于未知类型 <code>id</code> 或者其他 Objective-C类型的对象 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSString *someString = nil;</span><br><span class="line">NSURL *someURL = nil;</span><br><span class="line">id someObject = nil;</span><br><span class="line"></span><br><span class="line">if (anotherObject == nil) // do something</span><br></pre></td></tr></table></figure>
-<p>对于nil,只有在NSArray初始化时在作为结束的一个标志。这种情况也不是作为元素存储。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray *array = [NSArray arrayWithObjects:@&quot;one&quot;, @&quot;two&quot;, nil];</span><br></pre></td></tr></table></figure>
-<h4 id="Nil"><a href="#Nil" class="headerlink" title="Nil"></a>Nil</h4><p><code>Nil</code> 是 Objective-C 类为空, 对应于 <code>Class</code>. 因为大部分代码不需要引用class变量，所以这个并不常用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class someClass = Nil;</span><br><span class="line">Class anotherClass = [NSString class];</span><br></pre></td></tr></table></figure>
-<h4 id="NULL"><a href="#NULL" class="headerlink" title="NULL"></a>NULL</h4><p><code>NULL</code> C指针为空值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int *pointerToInt = NULL;</span><br><span class="line">char *pointerToChar = NULL;</span><br><span class="line">struct TreeNode *rootNode = NULL;</span><br></pre></td></tr></table></figure>
-<h4 id="NSNull"><a href="#NSNull" class="headerlink" title="NSNull"></a>NSNull</h4><p><code>NSNull</code> 是一个类用来代表空对象，实际上就是 <code>+[NSNull null]</code>. 与 <code>nil</code> 不一样因为空 <code>nil</code> 就是字面上的孔不是一个对象. <code>NSNull</code>的实例对象，是一个对象。</p>
-<p><code>NSNull</code> 经常用在 Foundation collections 因为它们不能存储 <code>nil</code> 值. 比如在dictionaries, <code>-objectForKey:</code> 返回一个 <code>nil</code>对应的key没有存储对象在里面,这个key没有添加进字典里. 如果你想用来表明，这个kety清楚地被添加进了，只不过没有值，你应该用 <code>[NSNull null]</code>.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line">[dict setObject:[NSNull null] forKey:@&quot;someKey&quot;];</span><br><span class="line"></span><br><span class="line">// 下面这种赋值时错误的，因为不能设nil</span><br><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line">[dict setObject:nil forKey:@&quot;someKey&quot;];</span><br></pre></td></tr></table></figure>
+                    <h4 id="一-Flask-简介"><a href="#一-Flask-简介" class="headerlink" title="一 Flask 简介"></a>一 Flask 简介</h4><blockquote>
+<p>flask的诞生于2010年的愚人节，本来它只是作者无意间写的一个小玩具，没想到它却悄悄流行起来了。漫长的8年时间，flask一直没有发布一个严肃的正式版本，但是却不能阻挡它成了github上最受好评的Python Web框架。(网上看到)</p>
+</blockquote>
+
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
                         </div>
                     
 

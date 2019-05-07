@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="1. 打开文件方式1：123file = open(&amp;apos;/xxx/xxxx.txt&amp;apos;,&amp;apos;r&amp;apos;)data = file.read()file.close()
+上述代码存在两个隐患
+
+需要手动关闭文件句柄，容易遗忘.
+如果文件读取异常，没有任何处理，无法捕捉崩溃
+
+">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="wuliangwang">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Python - with 语法解析"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="wuliangwang"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Python - with 语法解析 - wuliangwang</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="wuliangwang">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="wuliangwang">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="https://www.jianshu.com/u/184396eb339b" 
+                    title="Jianshu">
+                    Jianshu
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Python - with 语法解析</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-04-20</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <h4 id="1-打开文件"><a href="#1-打开文件" class="headerlink" title="1. 打开文件"></a>1. 打开文件</h4><h5 id="方式1："><a href="#方式1：" class="headerlink" title="方式1："></a>方式1：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file = open(&apos;/xxx/xxxx.txt&apos;,&apos;r&apos;)</span><br><span class="line">data = file.read()</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>上述代码存在两个隐患</p>
+<ol>
+<li>需要手动关闭文件句柄，容易遗忘.</li>
+<li>如果文件读取异常，没有任何处理，无法捕捉崩溃</li>
+</ol>
+<h5 id="加强版"><a href="#加强版" class="headerlink" title="加强版"></a>加强版</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f=open(&apos;/xxx/xxxx.txt&apos;,&apos;r&apos;)</span><br><span class="line">try:</span><br><span class="line">    r=f.read()</span><br><span class="line">except:</span><br><span class="line">    pass</span><br><span class="line">finally:</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<p>上述代码为了能正常释放文件的句柄，都要加个try，然后再finally里把f close掉，但是这样的代码不美观，finally就像个尾巴，一直托在后面，尤其是当try里面的语句时几十行，太冗长了.</p>
+<h5 id="with"><a href="#with" class="headerlink" title="with"></a>with</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with open(&apos;/xxx/xxxx.txt&apos;) as file:</span><br><span class="line">    data = file.read()</span><br></pre></td></tr></table></figure>
+<p>这条语句就好简洁很多，当with里面的语句产生异常的话，也会正常关闭文件.</p>
+<h4 id="2-自定义上下文管理器"><a href="#2-自定义上下文管理器" class="headerlink" title="2. 自定义上下文管理器"></a>2. 自定义上下文管理器</h4><p>with 语句执行原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">context_manager=context_expression</span><br><span class="line">exit=type(context_manager).__exit__</span><br><span class="line">value=type(context_manager).__enter__(context_manager)</span><br><span class="line">exc=True</span><br><span class="line">try:</span><br><span class="line">    try:</span><br><span class="line">        targer=value</span><br><span class="line">        with-body</span><br><span class="line">    except:</span><br><span class="line">        exc=False</span><br><span class="line">        if not exit(context_manager, *sys.exc_info()):</span><br><span class="line">            raise</span><br><span class="line">finally:</span><br><span class="line">    if exc:</span><br><span class="line">        exit(context_manager,None,None,None)</span><br></pre></td></tr></table></figure>
+<p>从with的执行原理中可以看出，context_expression返回的对象中必须具有<strong>exit</strong>和<strong>enter</strong>两个方法，而且先检查<strong>exit</strong>方法在检查<strong>enter</strong>方法。无论在执行with-body中的函数体的过程中是否会发生异常，都会执行<strong>exit</strong>函数，如果没有异常，退出函数的中参数都为None；如果发生异常，则使用sys.exc_info()返回的异常信息为参数退出，并且当<strong>exit</strong>方法返回True时，忽略异常，当<strong>exit</strong>方法返回False时，抛出异常，此时，<strong>exit</strong>函数中就不需要再抛出异常，只需要将<strong>exit</strong>函数的返回值设为False就可以了。</p>
+<h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><p>with只适用于上下文管理器的调用，除了文件外，with还支持 threading、decimal等模块，当然我们也可以自己定义可以给with调用的上下文管理器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class SessionContext():</span><br><span class="line">    def __init__(self,back_exc=False):</span><br><span class="line">        self.__back_exc = back_exc</span><br><span class="line"></span><br><span class="line">    def __enter__(self):</span><br><span class="line">        self.session = Session()</span><br><span class="line">        return self.session</span><br><span class="line"></span><br><span class="line">    def __exit__(self, exc_type, exc_val, exc_tb):</span><br><span class="line">        self.session.close()</span><br><span class="line">        if exc_tb:</span><br><span class="line">            self.session.rollback()</span><br><span class="line">            logger.error(exc_val)</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
+<p>使用:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with SessionContext() as session:</span><br><span class="line">	session.query(....................)</span><br></pre></td></tr></table></figure>
+<p>在开发的过程中，会有很多对象在使用之后，是需要执行一条或多条语句来进行关闭，释放等操作的，例如上面说的的文件，还有数据库连接，锁的获取等，这些收尾的操作会让代码显得累赘，也会造成由于程序异常跳出后，没有执行到这些收尾操作，而导致一些系统的异常，还有就是很多程序员会忘记写上这些操作，为了避免这些错误的产生，with语句就被生产出来了。with语句的作用就是让程序员不用写这些收尾的代码，并且即使程序异常也会执行到这些代码（finally的作用）</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524666096748&di=417262a49b4e40c4c09b62a8533d28d1&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F14966643566382649569.jpeg%3Fid%3D0%26from%3Dexport" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="wuliangwang">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            我叫壮骨,是一名iOS程序猿,这是我的博客，上面都是一些自己平时总结使用的.可能会有些小问题.如果发现了可以联系我. QQ: 956977073, 愿大家一起成长.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2019/04/20/Python - with 语法解析/">Python - with 语法解析</a>
+        </p>
+    
+        <p>
+            <a href="/2019/04/01/Python - Flask/">Python - Flask基础</a>
+        </p>
+    
+        <p>
+            <a href="/2018/08/24/iOS - 问题总结/">iOS - 问题总结</a>
+        </p>
+    
+        <p>
+            <a href="/2018/04/25/iOS - 人脸特征关键点获取/">iOS - 人脸特征关键点获取</a>
+        </p>
+    
+        <p>
+            <a href="/2018/03/09/iOS - Cell自带的长按复制/">iOS - Cell自带的长按复制</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/wuliangwang" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:wuliangwang88@163.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://wuliangwang.github.io/">wuliangwang</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
