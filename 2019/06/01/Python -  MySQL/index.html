@@ -10,13 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="Demo地址: https://github.com/wuliangwang/NetWork
-NetWork基于AFN的二次封装
-基本介绍
-1.首先先到 PHNetWorkEnum.h 中配置一下
-2.依赖于SVProgressHUD 的 Load加载
-3.DVNetFetcher 是异步文件下载 ">
-    
 
     <!--Author-->
     
@@ -25,7 +18,7 @@ NetWork基于AFN的二次封装
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="iOS - AFNetworking 的二次封装"/>
+        <meta property="og:title" content="Python - MySQL"/>
     
 
     <!--Open Graph Description-->
@@ -47,7 +40,7 @@ NetWork基于AFN的二次封装
 
     <!-- Title -->
     
-    <title>iOS - AFNetworking 的二次封装 - wuliangwang</title>
+    <title>Python - MySQL - wuliangwang</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
@@ -109,8 +102,8 @@ NetWork基于AFN的二次封装
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">iOS - AFNetworking 的二次封装</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-12-15</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Python - MySQL</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-06-01</p>
         </div>
     </div>
 
@@ -130,31 +123,18 @@ NetWork基于AFN的二次封装
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                                <a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <p>Demo地址: <a href="https://github.com/wuliangwang/NetWork" target="_blank" rel="noopener">https://github.com/wuliangwang/NetWork</a></p>
-<h1 id="NetWork"><a href="#NetWork" class="headerlink" title="NetWork"></a><a href="https://github.com/wuliangwang/NetWork" target="_blank" rel="noopener">NetWork</a></h1><p>基于AFN的二次封装</p>
-<p>基本介绍</p>
-<p>1.首先先到 PHNetWorkEnum.h 中配置一下</p>
-<p>2.依赖于SVProgressHUD 的 Load加载</p>
-<p>3.DVNetFetcher 是异步文件下载 原生的API封装</p>
-<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.GET<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[PHNetWork alloc] initWithRequestType:RequestTypeTest] getWithParameters:@&#123;@&quot;Test&quot;:@&quot;Test&quot;&#125; showLoading:YES success:^(id data) &#123;</span><br><span class="line">            // 网络请求成功后的操作</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[[[PHNetWork alloc] initWithRequestType:RequestTypeTest] getWithParameters:@&#123;@&quot;Test&quot;:@&quot;Test&quot;&#125; showLoading:YES finished:^(NSInteger code, NSString *responseMSG, NSDictionary *responseDict) &#123;</span><br><span class="line">           // 网络请求结束后的操作 </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
-<p>2.POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[PHNetWork alloc] initWithRequestType:RequestTypeTest] postWithParameters:@&#123;@&quot;Test&quot;:@&quot;Test&quot;&#125; showLoading:YES success:^(id data) &#123;</span><br><span class="line">            // 网络请求成功后的操作</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[[[PHNetWork alloc] initWithRequestType:RequestTypeTest] postWithParameters:@&#123;@&quot;Test&quot;:@&quot;Test&quot;&#125; showLoading:YES finished:^(NSInteger code, NSString *responseMSG, NSDictionary *responseDict) &#123;</span><br><span class="line">           // 网络请求结束后的操作 </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
-<p>3.上传图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[[PHNetWork alloc] initWithRequestType:RequestTypeTest] postFileWithData:@[imageData] parameters:@&#123;@&quot;Test&quot;:@&quot;Test&quot;&#125; showLoading:YES Name:@&quot;icon&quot; FileName:nil MimeType:@&quot;image/png&quot; finish:^(NSInteger code, NSString *responseMSG, NSDictionary *responseDict) &#123;</span><br><span class="line">           // 请求结束后的操作</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
-<p>……</p>
-<h4 id="PHNetWork-h"><a href="#PHNetWork-h" class="headerlink" title="PHNetWork.h"></a>PHNetWork.h</h4><p><img src="http://upload-images.jianshu.io/upload_images/3111822-4e9d883511973adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHNetWork.h"></p>
-<h4 id="url的拼接"><a href="#url的拼接" class="headerlink" title="url的拼接"></a>url的拼接</h4><p>在 PHNetWorkEnum.h 添加枚举<br><img src="http://upload-images.jianshu.io/upload_images/3111822-8a19860c890219c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在 PHNetWorkEnum.h 添加枚举"></p>
-<p>在 PHNetWorkHandler.m 中配置url<br><img src="http://upload-images.jianshu.io/upload_images/3111822-0439b5104b2533fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在 PHNetWorkHandler.m 中配置url"></p>
-
+                    
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/iOS/">#iOS</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Python/">#Python</a>
                         </div>
                     
 
